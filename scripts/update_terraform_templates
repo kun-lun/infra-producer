@@ -1,0 +1,7 @@
+#!/bin/bash -exu
+
+root_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+pushd ${root_dir}/../terraform/webserver
+  go-bindata -pkg webserver -mode 0740 -ignore "terraform.tf*" -o templates.go templates
+popd
