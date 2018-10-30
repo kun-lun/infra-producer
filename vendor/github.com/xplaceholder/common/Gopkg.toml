@@ -24,10 +24,11 @@
 #   go-tests = true
 #   unused-packages = true
 
-[[constraint]]
-  name = "github.com/xplaceholder/common"
-  branch = "draft"
 
-[[override]]
-  name = "gopkg.in/fsnotify.v1"
-  source = "https://github.com/fsnotify/fsnotify.git"
+[[constraint]]
+  name = "github.com/spf13/afero"
+  version = "1.1.2"
+
+[prune]
+  go-tests = true
+  unused-packages = true

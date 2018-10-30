@@ -103,6 +103,14 @@
   revision = "19b03e902aa7ae5627a3f6b068e951715665663c"
 
 [[projects]]
+  branch = "draft"
+  digest = "1:97dffdec5a83c44d9fa029c38d789dd5dc919a72976a64d636e03e3845b1df3b"
+  name = "github.com/xplaceholder/common"
+  packages = ["fileio"]
+  pruneopts = ""
+  revision = "a3ed5af57ecb964bb4e21eee76a2becd5f251401"
+
+[[projects]]
   branch = "master"
   digest = "1:41055845ee2a3f0b0fbf94f12b7a6c5322ae66c166d192e38156e0d63a6e2993"
   name = "golang.org/x/net"
@@ -186,6 +194,7 @@
     "github.com/onsi/gomega",
     "github.com/spf13/afero",
     "github.com/xplaceholder/artifacts/pkg/api/manifests",
+    "github.com/xplaceholder/common/fileio",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

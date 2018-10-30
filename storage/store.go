@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/xplaceholder/infra-producer/fileio"
 	uuid "github.com/nu7hatch/gouuid"
+	"github.com/xplaceholder/common/fileio"
 )
 
 var (
@@ -21,9 +21,9 @@ const (
 )
 
 type Store struct {
-	dir              string
-	fs               fs
-	stateSchema      int
+	dir         string
+	fs          fs
+	stateSchema int
 }
 
 type fs interface {
@@ -37,9 +37,9 @@ type fs interface {
 
 func NewStore(dir string, fs fs) Store {
 	return Store{
-		dir:              dir,
-		fs:               fs,
-		stateSchema:      STATE_SCHEMA,
+		dir:         dir,
+		fs:          fs,
+		stateSchema: STATE_SCHEMA,
 	}
 }
 
