@@ -2,3 +2,11 @@
 region: eastus2
 platform:
   type: lamp
+database:
+  engine: mysql
+  engine_version: "5.7"
+  cores: 2
+  storage: 5
+  backup_retention_days: 35
+  username: "binxi"
+  password: "542025537"

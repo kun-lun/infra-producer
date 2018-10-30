@@ -20,11 +20,6 @@ variable "azure_client_id" {}
 
 variable "azure_client_secret" {}
 
-variable "resource_group_prefix" {
-  type    = "string"
-  default = ""
-}
-
 variable "location" {
   default = "eastus2"
 }
