@@ -2,6 +2,7 @@ package webserver
 
 import (
 	"github.com/xplaceholder/infra-producer/storage"
+	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 )
 
 type InputGenerator struct {
@@ -11,7 +12,7 @@ func NewInputGenerator() InputGenerator {
 	return InputGenerator{}
 }
 
-func (i InputGenerator) Generate(state storage.State) (map[string]interface{}, error) {
+func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) (map[string]interface{}, error) {
 	input := map[string]interface{}{
 		"env_name": state.EnvName,
 		"region":   state.Azure.Region,

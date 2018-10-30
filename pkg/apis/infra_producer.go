@@ -17,7 +17,7 @@ import (
 )
 
 type InfraProducer struct {
-	TerraformManager terraform.Manager
+	terraformManager terraform.Manager
 }
 
 func NewInfraProducer(globals application.GlobalConfiguration) InfraProducer {
@@ -54,14 +54,23 @@ func NewInfraProducer(globals application.GlobalConfiguration) InfraProducer {
 	terraformManager := terraform.NewManager(terraformExecutor, templateGenerator, inputGenerator, terraformOutputBuffer, logger)
 
 	return InfraProducer{
-		TerraformManager: terraformManager,
+		terraformManager: terraformManager,
 	}
 }
 
-func (ip InfraProducer) GetRegion(b []byte) string {
-	im, err := artifacts.NewInfraManifestFromYAML(b)
+func (ip InfraProducer) Setup(artifactsBytes []byte, state storage.State) error {
+	im, err := artifacts.NewInfraManifestFromYAML(artifactsBytes)
 	if err != nil {
-		return ""
+		return err
 	}
-	return im.Region
+
+	ip.terraformManager.Setup(im, state)
+
+	return nil
+}
+
+func (ip InfraProducer) Apply(state storage.State) error {
+	ip.terraformManager.Apply(state)
+
+	return nil
 }

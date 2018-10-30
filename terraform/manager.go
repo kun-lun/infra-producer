@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/xplaceholder/infra-producer/storage"
+	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 	"github.com/coreos/go-semver/semver"
 )
 
@@ -30,12 +31,12 @@ type executor interface {
 }
 
 type InputGenerator interface {
-	Generate(storage.State) (map[string]interface{}, error)
+	Generate(artifacts.InfraManifest, storage.State) (map[string]interface{}, error)
 	Credentials(state storage.State) map[string]string
 }
 
 type TemplateGenerator interface {
-	Generate(storage.State) string
+	Generate(artifacts.InfraManifest, storage.State) string
 }
 
 type logger interface {
@@ -79,12 +80,12 @@ func (m Manager) ValidateVersion() error {
 	return nil
 }
 
-func (m Manager) Setup(jindouState storage.State) error {
+func (m Manager) Setup(manifest artifacts.InfraManifest, jindouState storage.State) error {
 	m.logger.Step("generating terraform template")
-	template := m.templateGenerator.Generate(jindouState)
+	template := m.templateGenerator.Generate(manifest, jindouState)
 
 	m.logger.Step("generating terraform variables")
-	input, err := m.inputGenerator.Generate(jindouState)
+	input, err := m.inputGenerator.Generate(manifest, jindouState)
 	if err != nil {
 		return fmt.Errorf("Input generator generate: %s", err)
 	}

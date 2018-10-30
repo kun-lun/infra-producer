@@ -1,4 +1,3 @@
-# Create a virtual network in the default resource group
 resource "azurerm_virtual_network" "jindou_virtual_network" {
   name                = "jindou"
   resource_group_name = "${azurerm_resource_group.jindou_resource_group.name}"

@@ -57,17 +57,10 @@ var _ = Describe("InfraProducer", func() {
 
 	Describe("foo", func() {
 		Context("bar", func() {
-			It("should validate the version", func() {
-				Expect(infraProducer.TerraformManager.ValidateVersion()).To(BeNil())
-			})
-
-			It("should setup terraform", func() {
-				Expect(infraProducer.TerraformManager.Setup(state)).To(BeNil())
-			})
-
-			It("should read artifac", func() {
+			It("should setup and apply terraform", func() {
 				b, _ := ioutil.ReadFile(artifact)
-				Expect(infraProducer.GetRegion(b)).To(Equal("eastus2"))
+				Expect(infraProducer.Setup(b, state)).To(BeNil())
+				Expect(infraProducer.Apply(state)).To(BeNil())
 			})
 		})
 	})
