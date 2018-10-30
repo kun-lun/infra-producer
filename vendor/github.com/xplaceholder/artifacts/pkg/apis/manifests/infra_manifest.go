@@ -1,8 +1,8 @@
 package manifests
 
 import (
-	"github.com/xplaceholder/artifacts/pkg/api/basic"
-	"github.com/xplaceholder/artifacts/pkg/api/resources"
+	"github.com/xplaceholder/artifacts/pkg/apis/basic"
+	"github.com/xplaceholder/artifacts/pkg/apis/resources"
 	yaml "gopkg.in/yaml.v2"
 )
 

@@ -7,3 +7,7 @@ type Database struct {
 	// Storage capacity, in MB
 	Storage string `yaml:"storage"`
 }
+
+const (
+	MysqlDB = "mysql"
+)

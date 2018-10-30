@@ -3,26 +3,26 @@ package main
 import (
 	"fmt"
 
-	"github.com/xplaceholder/artifacts/pkg/api/manifests"
-	"github.com/xplaceholder/artifacts/pkg/api/resources"
+	"github.com/xplaceholder/artifacts/pkg/apis/manifests"
+	"github.com/xplaceholder/artifacts/pkg/apis/resources"
 )
 
 func main() {
 	// Below code will be executed by checker, the checker determines what resource will be created
 	lb := resources.LoadBalancer{
-		SKU: "standard",
+		SKU: resources.LoadBalancerStandardSKU,
 	}
 	vmGroups := []resources.VMGroup{
 		{
 			Name:  "group1",
 			Count: 2,
-			SKU:   "Standard_D2_v3",
+			SKU:   resources.VMStandardD2V3,
 			Type:  "VM",
 		},
 		{
 			Name:  "group2",
 			Count: 3,
-			SKU:   "Standard_D2_v2",
+			SKU:   resources.VMStandardD4V3,
 			Type:  "VMSS",
 		},
 	}

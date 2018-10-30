@@ -92,15 +92,15 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:4cbd03c86c9de9b7bbb7be32bbb94fc72380da91ca3dbf2c94d874f314b4efa7"
+  digest = "1:62505506695af4c7745152e2b059aca54b72c319fe0e03af063484ced0ad2ccf"
   name = "github.com/xplaceholder/artifacts"
   packages = [
-    "pkg/api/basic",
-    "pkg/api/manifests",
-    "pkg/api/resources",
+    "pkg/apis/basic",
+    "pkg/apis/manifests",
+    "pkg/apis/resources",
   ]
   pruneopts = ""
-  revision = "19b03e902aa7ae5627a3f6b068e951715665663c"
+  revision = "dec6d4b9a734c15da0b55ac18108f40baa18cb30"
 
 [[projects]]
   branch = "draft"
@@ -193,7 +193,7 @@
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/spf13/afero",
-    "github.com/xplaceholder/artifacts/pkg/api/manifests",
+    "github.com/xplaceholder/artifacts/pkg/apis/manifests",
     "github.com/xplaceholder/common/fileio",
   ]
   solver-name = "gps-cdcl"

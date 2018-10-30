@@ -4,3 +4,8 @@ package resources
 type LoadBalancer struct {
 	SKU string `yaml:"sku"`
 }
+
+const (
+	LoadBalancerStandardSKU = "standard"
+	LoadBalancerBasicSKU    = "basic"
+)

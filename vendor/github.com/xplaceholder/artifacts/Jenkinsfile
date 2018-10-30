@@ -1,19 +1,11 @@
 pipeline {
     agent { docker { image 'golang:1.10.3' } }
     stages {
-        stage('prepare source') {
-            steps {
-                sh 'echo "hello"'
-            }
-        }
-        stage('golint') {
-            steps {
-                sh 'golint ./...'
-            }
-        }
         stage('unit test') {
             steps {
-                sh 'ginkgo -r'
+                sh "curl https://raw.githubusercontent.com/xplaceholder/test-infra/draft/scripts/unit_test.sh -o unit_test.sh"
+                sh "chmod +x ./unit_test.sh"
+                sh "./unit_test.sh"
             }
         }
     }

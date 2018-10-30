@@ -13,7 +13,7 @@ import (
 	"github.com/xplaceholder/infra-producer/storage"
 	"github.com/xplaceholder/infra-producer/terraform"
 	webserverterraform "github.com/xplaceholder/infra-producer/terraform/webserver"
-	artifacts "github.com/xplaceholder/artifacts/pkg/api/manifests"
+	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 )
 
 type InfraProducer struct {
