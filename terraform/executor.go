@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/xplaceholder/infra-producer/fileio"
+	"github.com/xplaceholder/common/fileio"
 	"github.com/xplaceholder/infra-producer/storage"
 )
 
