@@ -9,7 +9,6 @@ variable "environments" {
     AzureChinaCloud   = "china"
   }
 }
-
 variable "azure_environment" {}
 
 variable "azure_tenant_id" {}
@@ -28,3 +27,11 @@ variable "jindou_virtual_network_address_space" {
   type    = "list"
   default = ["10.0.0.0/16"]
 }
+
+variable "web_server_vm_count" {}
+
+variable "web_server_vm_size" {
+  default = "Standard_D2s_v3"
+}
+
+variable "load_balancer_sku" {}
