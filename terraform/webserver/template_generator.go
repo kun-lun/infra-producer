@@ -8,15 +8,18 @@ import (
 )
 
 type templates struct {
-	provider      string
-	vars          string
-	resourceGroup string
-	network       string
-	vmss          string
-	loadBalancer  string
+	mysql         string
 	devbox        string
-	output        string
+	loadBalancer  string
 	nsg           string
+	output        string
+	provider      string
+	resourceGroup string
+	subnet        string
+	vars          string
+	vmss          string
+	vnet          string
+	webServer     string
 }
 
 type TemplateGenerator struct{}
@@ -29,7 +32,19 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 	tmpls := readTemplates()
 
 	template := strings.Join(
-		[]string{tmpls.provider, tmpls.vars, tmpls.resourceGroup, tmpls.network, tmpls.output, tmpls.vmss, tmpls.devbox, tmpls.loadBalancer, tmpls.nsg},
+		[]string{
+			tmpls.mysql,
+			tmpls.devbox,
+			tmpls.loadBalancer,
+			tmpls.nsg,
+			tmpls.output,
+			tmpls.provider,
+			tmpls.resourceGroup,
+			tmpls.subnet,
+			tmpls.vars,
+			tmpls.vmss,
+			tmpls.vnet,
+		},
 		"\n",
 	)
 
@@ -38,14 +53,17 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 
 func readTemplates() templates {
 	tmpls := templates{}
-	tmpls.provider = string(MustAsset("templates/provider.tf"))
-	tmpls.vars = string(MustAsset("templates/vars.tf"))
-	tmpls.resourceGroup = string(MustAsset("templates/resource_group.tf"))
-	tmpls.network = string(MustAsset("templates/network.tf"))
+	tmpls.mysql = string(MustAsset("templates/db_mysql.tf"))
 	tmpls.devbox = string(MustAsset("templates/devbox.tf"))
-	tmpls.vmss = string(MustAsset("templates/vmss.tf"))
 	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
-	tmpls.output = string(MustAsset("templates/output.tf"))
 	tmpls.nsg = string(MustAsset("templates/network_security_group.tf"))
+	tmpls.output = string(MustAsset("templates/output.tf"))
+	tmpls.provider = string(MustAsset("templates/provider.tf"))
+	tmpls.resourceGroup = string(MustAsset("templates/resource_group.tf"))
+	tmpls.subnet = string(MustAsset("templates/subnet.tf"))
+	tmpls.vars = string(MustAsset("templates/vars.tf"))
+	tmpls.vmss = string(MustAsset("templates/vmss.tf"))
+	tmpls.vnet = string(MustAsset("templates/vnet.tf"))
+	tmpls.webServer = string(MustAsset("templates/web_server.tf"))
 	return tmpls
 }
