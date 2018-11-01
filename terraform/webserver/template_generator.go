@@ -9,7 +9,7 @@ import (
 
 type templates struct {
 	mysql         string
-	devbox        string
+	jumpbox       string
 	loadBalancer  string
 	nsg           string
 	output        string
@@ -34,7 +34,7 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 	template := strings.Join(
 		[]string{
 			tmpls.mysql,
-			tmpls.devbox,
+			tmpls.jumpbox,
 			tmpls.loadBalancer,
 			tmpls.nsg,
 			tmpls.output,
@@ -54,7 +54,7 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 func readTemplates() templates {
 	tmpls := templates{}
 	tmpls.mysql = string(MustAsset("templates/db_mysql.tf"))
-	tmpls.devbox = string(MustAsset("templates/devbox.tf"))
+	tmpls.jumpbox = string(MustAsset("templates/jumpbox.tf"))
 	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
 	tmpls.nsg = string(MustAsset("templates/network_security_group.tf"))
 	tmpls.output = string(MustAsset("templates/output.tf"))

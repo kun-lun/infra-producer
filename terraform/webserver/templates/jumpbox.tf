@@ -1,28 +1,28 @@
-resource "azurerm_public_ip" "kunlun_devbox_public_ip" {
-  name                         = "${var.env_name}-devbox-public-ip"
+resource "azurerm_public_ip" "kunlun_jumpbox_public_ip" {
+  name                         = "${var.env_name}-jumpbox-public-ip"
   location                     = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name          = "${azurerm_resource_group.kunlun_resource_group.name}"
   public_ip_address_allocation = "static"
 }
 
-resource "azurerm_network_interface" "kunlun_devbox_nic" {
-  name                      = "${var.env_name}-devbox-nic"
+resource "azurerm_network_interface" "kunlun_jumpbox_nic" {
+  name                      = "${var.env_name}-jumpbox-nic"
   location                  = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
-  network_security_group_id = "${azurerm_network_security_group.kunlun_devbox_network_security_group.id}"
+  network_security_group_id = "${azurerm_network_security_group.kunlun_jumpbox_network_security_group.id}"
   ip_configuration {
-    name                          = "${var.env_name}-devbox-nicip"
+    name                          = "${var.env_name}-jumpbox-nicip"
     subnet_id                     = "${azurerm_subnet.san_subnet.id}"
     private_ip_address_allocation = "dynamic"
-    public_ip_address_id          = "${azurerm_public_ip.kunlun_devbox_public_ip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.kunlun_jumpbox_public_ip.id}"
   }
 }
 
-resource "azurerm_virtual_machine" "kunlun_devbox" {
-  name                  = "${var.env_name}-devbox"
+resource "azurerm_virtual_machine" "kunlun_jumpbox" {
+  name                  = "${var.env_name}-jumpbox"
   location              = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name   = "${azurerm_resource_group.kunlun_resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.kunlun_devbox_nic.id}"]
+  network_interface_ids = ["${azurerm_network_interface.kunlun_jumpbox_nic.id}"]
   vm_size               = "Standard_DS2_v2"
 
 
@@ -40,14 +40,14 @@ resource "azurerm_virtual_machine" "kunlun_devbox" {
   }
 
   storage_os_disk {
-    name              = "${var.env_name}-devbox-disk"
+    name              = "${var.env_name}-jumpbox-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "devbox"
+    computer_name  = "jumpbox"
     admin_username = "testadmin"
     admin_password = "Password1234!"
   }
