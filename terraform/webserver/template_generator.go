@@ -11,7 +11,6 @@ type templates struct {
 	mysql         string
 	jumpbox       string
 	loadBalancer  string
-	nsg           string
 	output        string
 	provider      string
 	resourceGroup string
@@ -36,7 +35,6 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 			tmpls.mysql,
 			tmpls.jumpbox,
 			tmpls.loadBalancer,
-			tmpls.nsg,
 			tmpls.output,
 			tmpls.provider,
 			tmpls.resourceGroup,
@@ -56,7 +54,6 @@ func readTemplates() templates {
 	tmpls.mysql = string(MustAsset("templates/db_mysql.tf"))
 	tmpls.jumpbox = string(MustAsset("templates/jumpbox.tf"))
 	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
-	tmpls.nsg = string(MustAsset("templates/network_security_group.tf"))
 	tmpls.output = string(MustAsset("templates/output.tf"))
 	tmpls.provider = string(MustAsset("templates/provider.tf"))
 	tmpls.resourceGroup = string(MustAsset("templates/resource_group.tf"))
