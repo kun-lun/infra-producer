@@ -1,8 +1,10 @@
 package webserver
 
 import (
-	"github.com/xplaceholder/infra-producer/storage"
+	"strconv"
+
 	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
+	"github.com/xplaceholder/infra-producer/storage"
 )
 
 type InputGenerator struct {
@@ -13,9 +15,26 @@ func NewInputGenerator() InputGenerator {
 }
 
 func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) (map[string]interface{}, error) {
+	dbUsername := manifest.Database.Username
+	dbPassword := manifest.Database.Password
+	dbStorage := strconv.Itoa(manifest.Database.Storage)
+	dbCore := strconv.Itoa(manifest.Database.Cores)
+
+	loadBalancerSKU := manifest.LoadBalancer.SKU
+
+	vmCount := strconv.Itoa(manifest.VMGroups[0].Count)
+	vmSize := manifest.VMGroups[0].SKU
+
 	input := map[string]interface{}{
-		"env_name": state.EnvName,
-		"region":   state.Azure.Region,
+		"env_name":            state.EnvName,
+		"region":              state.Azure.Region,
+		"database_username":   dbUsername,
+		"database_password":   dbPassword,
+		"storage":             dbStorage,
+		"cores":               dbCore,
+		"web_server_vm_count": vmCount,
+		"web_server_vm_size":  vmSize,
+		"load_balancer_sku":   loadBalancerSKU,
 	}
 
 	return input, nil

@@ -92,7 +92,7 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:62505506695af4c7745152e2b059aca54b72c319fe0e03af063484ced0ad2ccf"
+  digest = "1:41e508dc88b17917aab31970340f4cbd42621868655c6730455a9bffe7756543"
   name = "github.com/xplaceholder/artifacts"
   packages = [
     "pkg/apis/basic",
@@ -100,15 +100,15 @@
     "pkg/apis/resources",
   ]
   pruneopts = ""
-  revision = "dec6d4b9a734c15da0b55ac18108f40baa18cb30"
+  revision = "1164b38696fd2e1a6b06fe7a126be12d205c71c6"
 
 [[projects]]
   branch = "draft"
-  digest = "1:97dffdec5a83c44d9fa029c38d789dd5dc919a72976a64d636e03e3845b1df3b"
+  digest = "1:e80e087550a1b2d1a57fac25bb109b476ba0302d97274e0aa74974ec8c06ff0b"
   name = "github.com/xplaceholder/common"
   packages = ["fileio"]
   pruneopts = ""
-  revision = "a3ed5af57ecb964bb4e21eee76a2becd5f251401"
+  revision = "4eba06af8283c2169ddaa9529bd271080a1ead5c"
 
 [[projects]]
   branch = "master"
@@ -124,11 +124,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:de99191d5db38e17beb783bdcdab9d8d1a6938948834b2579f500f3bdfbcdac0"
+  digest = "1:a5320611dcdfc9d79e459a43442b272d9e03276107e75655d7a199aa271d456a"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = ""
-  revision = "95b1ffbd15a57cc5abb3f04402b9e8ec0016a52c"
+  revision = "9b800f95dbbc54abff0acf7ee32d88ba4e328c89"
 
 [[projects]]
   digest = "1:5acd3512b047305d49e8763eef7ba423901e85d5dd2fd1e71778a0ea8de10bd4"
