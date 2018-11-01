@@ -14,7 +14,6 @@ resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
   location                  = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
   upgrade_policy_mode       = "Manual"
-  network_security_group_id = "${azurerm_network_security_group.kunlun_server_network_security_group.id}"
   sku {
     name     = "${var.web_server_vm_size}"
     tier     = "Standard"
@@ -55,6 +54,7 @@ resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
   network_profile {
     name    = "kunlunvmssnetworkprofile"
     primary = true
+    network_security_group_id = "${azurerm_network_security_group.kunlun_server_network_security_group.id}"
 
     ip_configuration {
       name                                   = "kunlunvmssnetworkipconfiguration"
