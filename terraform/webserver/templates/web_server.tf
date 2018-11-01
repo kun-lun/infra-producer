@@ -13,7 +13,7 @@ resource "azurerm_network_interface" "kunlun_nic" {
 }
 
 resource "azurerm_virtual_machine" "kunlun_vm" {
-  name                  = "${var.env_name}-kunlun-vm-${count.index}"
+  name                  = "${var.env_name}-vm-${count.index}"
   location              = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name   = "${azurerm_resource_group.kunlun_resource_group.name}"
   network_interface_ids = ["${azurerm_network_interface.kunlun_nic.*.id[count.index]}"]

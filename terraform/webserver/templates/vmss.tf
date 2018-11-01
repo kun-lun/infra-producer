@@ -10,11 +10,11 @@ resource "azurerm_lb_nat_pool" "kunlun_vmss_nat_pool" {
 }
 
 resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
-  name                = "mytestscaleset-1"
-  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
-  upgrade_policy_mode = "Manual"
-
+  name                      = "${var.env_name}-vmss"
+  location                  = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
+  upgrade_policy_mode       = "Manual"
+  network_security_group_id = "${azurerm_network_security_group.kunlun_server_network_security_group.id}"
   sku {
     name     = "${var.web_server_vm_size}"
     tier     = "Standard"

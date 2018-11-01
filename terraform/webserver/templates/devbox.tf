@@ -1,15 +1,15 @@
 resource "azurerm_public_ip" "kunlun_devbox_public_ip" {
-  name                         = "kunlun_devbox_public_ip"
+  name                         = "${var.env_name}-devbox-public-ip"
   location                     = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name          = "${azurerm_resource_group.kunlun_resource_group.name}"
   public_ip_address_allocation = "static"
 }
 
 resource "azurerm_network_interface" "kunlun_devbox_nic" {
-  name                = "${var.env_name}-devbox-nic"
-  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
-
+  name                      = "${var.env_name}-devbox-nic"
+  location                  = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
+  network_security_group_id = "${azurerm_network_security_group.kunlun_devbox_network_security_group.id}"
   ip_configuration {
     name                          = "${var.env_name}-devbox-nicip"
     subnet_id                     = "${azurerm_subnet.san_subnet.id}"
@@ -19,7 +19,7 @@ resource "azurerm_network_interface" "kunlun_devbox_nic" {
 }
 
 resource "azurerm_virtual_machine" "kunlun_devbox" {
-  name                  = "${var.env_name}-kunlun-devbox"
+  name                  = "${var.env_name}-devbox"
   location              = "${azurerm_resource_group.kunlun_resource_group.location}"
   resource_group_name   = "${azurerm_resource_group.kunlun_resource_group.name}"
   network_interface_ids = ["${azurerm_network_interface.kunlun_devbox_nic.id}"]
@@ -40,7 +40,7 @@ resource "azurerm_virtual_machine" "kunlun_devbox" {
   }
 
   storage_os_disk {
-    name              = "kunlundevboxdisk"
+    name              = "${var.env_name}-devbox-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
