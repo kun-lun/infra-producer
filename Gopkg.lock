@@ -10,8 +10,7 @@
   version = "v0.2.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:59392ed8afb901aab4287d4894df8191722e34f3957716f4350c8c133ce99046"
+  digest = "1:a1038ef593beb4771c8f0f9c26e8b00410acd800af5c6864651d9bf160ea1813"
   name = "github.com/hpcloud/tail"
   packages = [
     ".",
@@ -21,7 +20,8 @@
     "winfile",
   ]
   pruneopts = "UT"
-  revision = "a1dbeea552b7c8df4b542c66073e393de198a800"
+  revision = "a30252cb686a21eb2d0b98132633053ec2f7f1e5"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "draft"
@@ -33,7 +33,7 @@
     "pkg/apis/resources",
   ]
   pruneopts = "UT"
-  revision = "146ed5330dd9bcfcee917ee961ac47bf92aa2d74"
+  revision = "06a1e4ae4a05f48d6f2d41b4f5c8093805818ade"
 
 [[projects]]
   branch = "draft"
@@ -41,26 +41,6 @@
   name = "github.com/kun-lun/common"
   packages = ["fileio"]
   pruneopts = "UT"
-  revision = "5373108824cc1fac15ac0274e27ea2d25daf7d16"
-
-[[projects]]
-  branch = "draft"
-  digest = "1:fb6e22146917e5065ae43050f9a03f2c6c49964dbc569453ba604ecd586c274c"
-  name = "github.com/kun-lun/artifacts"
-  packages = [
-    "pkg/apis/basic",
-    "pkg/apis/manifests",
-    "pkg/apis/resources",
-  ]
-  pruneopts = ""
-  revision = "06a1e4ae4a05f48d6f2d41b4f5c8093805818ade"
-
-[[projects]]
-  branch = "draft"
-  digest = "1:04b7452bbecb7f892f018bd7998f6656877c5aecc6ee668e0fd2ac65aa899e39"
-  name = "github.com/kun-lun/common"
-  packages = ["fileio"]
-  pruneopts = ""
   revision = "5373108824cc1fac15ac0274e27ea2d25daf7d16"
 
 [[projects]]
@@ -181,18 +161,20 @@
 
 [[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
-  name = "gopkg.in/fsnotify/fsnotify.v1"
+  name = "gopkg.in/fsnotify.v1"
   packages = ["."]
   pruneopts = "UT"
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
+  source = "github.com/fsnotify/fsnotify"
   version = "v1.4.7"
 
 [[projects]]
-  digest = "1:3c839a777de0e6da035c9de900b60cbec463b0a89351192c1ea083eaf9e0fce0"
+  branch = "v1"
+  digest = "1:0caa92e17bc0b65a98c63e5bc76a9e844cd5e56493f8fdbb28fad101a16254d9"
   name = "gopkg.in/tomb.v1"
   packages = ["."]
   pruneopts = "UT"
-  revision = "c131134a1947e9afd9cecfe11f4c6dff0732ae58"
+  revision = "dd632973f1e7218eb1089048e0798ec9ae7dceb8"
 
 [[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
