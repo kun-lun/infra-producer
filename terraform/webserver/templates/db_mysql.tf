@@ -16,7 +16,7 @@ variable "database_password" {}
 
 resource "azurerm_mysql_server" "db_mysql" {
   name                      = "${var.env_name}"
-  resource_group_name       = "${azurerm_resource_group.jindou_resource_group.name}"
+  resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
   location                  = "${var.location}"
 
   sku {

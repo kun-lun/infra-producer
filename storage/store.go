@@ -17,7 +17,7 @@ var (
 
 const (
 	STATE_SCHEMA = 1
-	STATE_FILE   = "jindou-state.json"
+	STATE_FILE   = "kunlun-state.json"
 )
 
 type Store struct {

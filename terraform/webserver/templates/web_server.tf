@@ -1,9 +1,9 @@
 
-resource "azurerm_network_interface" "jindou_nic" {
+resource "azurerm_network_interface" "kunlun_nic" {
   name                = "${var.env_name}-nic-${count.index}"
   count               = "${var.web_server_vm_count}"
-  location            = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.jindou_resource_group.name}"
+  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
 
   ip_configuration {
     name                          = "${var.env_name}-nicip-${count.index}"
@@ -12,11 +12,11 @@ resource "azurerm_network_interface" "jindou_nic" {
   }
 }
 
-resource "azurerm_virtual_machine" "jindou_vm" {
-  name                  = "${var.env_name}-jindou-vm-${count.index}"
-  location              = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name   = "${azurerm_resource_group.jindou_resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.jindou_nic.*.id[count.index]}"]
+resource "azurerm_virtual_machine" "kunlun_vm" {
+  name                  = "${var.env_name}-kunlun-vm-${count.index}"
+  location              = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name   = "${azurerm_resource_group.kunlun_resource_group.name}"
+  network_interface_ids = ["${azurerm_network_interface.kunlun_nic.*.id[count.index]}"]
   vm_size               = "${var.web_server_vm_size}"
   count                 = "${var.web_server_vm_count}"
 
@@ -35,7 +35,7 @@ resource "azurerm_virtual_machine" "jindou_vm" {
   }
 
   storage_os_disk {
-    name              = "jindouvmdisk${count.index}"
+    name              = "kunlunvmdisk${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -56,9 +56,9 @@ resource "azurerm_virtual_machine" "jindou_vm" {
   }
 }
 
-resource "azurerm_network_interface_backend_address_pool_association" "jindou_vm_nic_backend_pool_association" {
+resource "azurerm_network_interface_backend_address_pool_association" "kunlun_vm_nic_backend_pool_association" {
   count                   = "${var.web_server_vm_count}"
-  network_interface_id    = "${azurerm_network_interface.jindou_nic.*.id[count.index]}"
+  network_interface_id    = "${azurerm_network_interface.kunlun_nic.*.id[count.index]}"
   ip_configuration_name   = "${var.env_name}-nicip-${count.index}"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.jindou_load_balancer_backend_address_pool.id}"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.kunlun_load_balancer_backend_address_pool.id}"
 }
