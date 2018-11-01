@@ -52,7 +52,7 @@ var _ = Describe("InfraProducer", func() {
 	})
 
 	AfterEach(func() {
-		//	os.RemoveAll(stateDir)
+		os.RemoveAll(stateDir)
 	})
 
 	Describe("foo", func() {
