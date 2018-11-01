@@ -4,13 +4,13 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	. "github.com/xplaceholder/infra-producer/pkg/apis"
+	. "github.com/kun-lun/infra-producer/pkg/apis"
 
 	"os"
 	"path/filepath"
 	"io/ioutil"
-	"github.com/xplaceholder/infra-producer/application"
-	"github.com/xplaceholder/infra-producer/storage"
+	"github.com/kun-lun/infra-producer/application"
+	"github.com/kun-lun/infra-producer/storage"
 )
 
 var _ = Describe("InfraProducer", func() {

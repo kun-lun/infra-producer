@@ -24,6 +24,26 @@
   version = "v1.0.0"
 
 [[projects]]
+  branch = "draft"
+  digest = "1:fb6e22146917e5065ae43050f9a03f2c6c49964dbc569453ba604ecd586c274c"
+  name = "github.com/kun-lun/artifacts"
+  packages = [
+    "pkg/apis/basic",
+    "pkg/apis/manifests",
+    "pkg/apis/resources",
+  ]
+  pruneopts = ""
+  revision = "06a1e4ae4a05f48d6f2d41b4f5c8093805818ade"
+
+[[projects]]
+  branch = "draft"
+  digest = "1:04b7452bbecb7f892f018bd7998f6656877c5aecc6ee668e0fd2ac65aa899e39"
+  name = "github.com/kun-lun/common"
+  packages = ["fileio"]
+  pruneopts = ""
+  revision = "5373108824cc1fac15ac0274e27ea2d25daf7d16"
+
+[[projects]]
   branch = "master"
   digest = "1:55c48c9cfdf8bab6f4911f621616fbe223c0b72a6df9aab6b172ab7e5cfc6bd2"
   name = "github.com/nu7hatch/gouuid"
@@ -89,26 +109,6 @@
   pruneopts = ""
   revision = "d40851caa0d747393da1ffb28f7f9d8b4eeffebd"
   version = "v1.1.2"
-
-[[projects]]
-  branch = "draft"
-  digest = "1:41e508dc88b17917aab31970340f4cbd42621868655c6730455a9bffe7756543"
-  name = "github.com/xplaceholder/artifacts"
-  packages = [
-    "pkg/apis/basic",
-    "pkg/apis/manifests",
-    "pkg/apis/resources",
-  ]
-  pruneopts = ""
-  revision = "1164b38696fd2e1a6b06fe7a126be12d205c71c6"
-
-[[projects]]
-  branch = "draft"
-  digest = "1:e80e087550a1b2d1a57fac25bb109b476ba0302d97274e0aa74974ec8c06ff0b"
-  name = "github.com/xplaceholder/common"
-  packages = ["fileio"]
-  pruneopts = ""
-  revision = "4eba06af8283c2169ddaa9529bd271080a1ead5c"
 
 [[projects]]
   branch = "master"
@@ -189,12 +189,12 @@
   analyzer-version = 1
   input-imports = [
     "github.com/coreos/go-semver/semver",
+    "github.com/kun-lun/artifacts/pkg/apis/manifests",
+    "github.com/kun-lun/common/fileio",
     "github.com/nu7hatch/gouuid",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/spf13/afero",
-    "github.com/xplaceholder/artifacts/pkg/apis/manifests",
-    "github.com/xplaceholder/common/fileio",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

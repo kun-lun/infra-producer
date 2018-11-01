@@ -25,7 +25,7 @@
 #   unused-packages = true
 
 [[constraint]]
-  name = "github.com/xplaceholder/common"
+  name = "github.com/kun-lun/common"
   branch = "draft"
 
 [[override]]

@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/xplaceholder/artifacts/pkg/apis/manifests"
-	"github.com/xplaceholder/artifacts/pkg/apis/resources"
+	"github.com/kun-lun/artifacts/pkg/apis/manifests"
+	"github.com/kun-lun/artifacts/pkg/apis/resources"
 )
 
 func main() {

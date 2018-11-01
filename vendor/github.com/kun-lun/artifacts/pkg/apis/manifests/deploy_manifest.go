@@ -1,7 +1,7 @@
 package manifests
 
 import (
-	"github.com/xplaceholder/artifacts/pkg/apis/resources"
+	"github.com/kun-lun/artifacts/pkg/apis/resources"
 	yaml "gopkg.in/yaml.v2"
 )
 
