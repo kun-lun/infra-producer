@@ -10,3 +10,11 @@ database:
   backup_retention_days: 35
   username: "binxi"
   password: "542025537"
+vm_groups:
+  - name: d2v3_group
+    count: 2
+    sku: Standard_D2_v3
+    type: vmss
+
+load_balancer:
+  sku: Standard
