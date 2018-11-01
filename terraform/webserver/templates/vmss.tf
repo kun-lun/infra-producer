@@ -1,7 +1,7 @@
-resource "azurerm_lb_nat_pool" "jindou_vmss_nat_pool" {
-  resource_group_name            = "${azurerm_resource_group.jindou_resource_group.name}"
-  name                           = "jindou-ssh"
-  loadbalancer_id                = "${azurerm_lb.jindou_load_balancer.id}"
+resource "azurerm_lb_nat_pool" "kunlun_vmss_nat_pool" {
+  resource_group_name            = "${azurerm_resource_group.kunlun_resource_group.name}"
+  name                           = "kunlun-ssh"
+  loadbalancer_id                = "${azurerm_lb.kunlun_load_balancer.id}"
   protocol                       = "Tcp"
   frontend_port_start            = 50000
   frontend_port_end              = 50119
@@ -9,10 +9,10 @@ resource "azurerm_lb_nat_pool" "jindou_vmss_nat_pool" {
   frontend_ip_configuration_name = "PublicIPAddress"
 }
 
-resource "azurerm_virtual_machine_scale_set" "jindou_vmss" {
+resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
   name                = "mytestscaleset-1"
-  location            = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.jindou_resource_group.name}"
+  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
   upgrade_policy_mode = "Manual"
 
   sku {
@@ -53,15 +53,15 @@ resource "azurerm_virtual_machine_scale_set" "jindou_vmss" {
   }
 
   network_profile {
-    name    = "jindouvmssnetworkprofile"
+    name    = "kunlunvmssnetworkprofile"
     primary = true
 
     ip_configuration {
-      name                                   = "jindouvmssnetworkipconfiguration"
+      name                                   = "kunlunvmssnetworkipconfiguration"
       primary                                = true
       subnet_id                              = "${azurerm_subnet.san_subnet.id}"
-      load_balancer_backend_address_pool_ids = ["${azurerm_lb_backend_address_pool.jindou_load_balancer_backend_address_pool.id}"]
-      load_balancer_inbound_nat_rules_ids    = ["${azurerm_lb_nat_pool.jindou_vmss_nat_pool.id}"]
+      load_balancer_backend_address_pool_ids = ["${azurerm_lb_backend_address_pool.kunlun_load_balancer_backend_address_pool.id}"]
+      load_balancer_inbound_nat_rules_ids    = ["${azurerm_lb_nat_pool.kunlun_vmss_nat_pool.id}"]
     }
   }
 }

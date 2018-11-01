@@ -16,7 +16,7 @@ import (
 	"github.com/xplaceholder/infra-producer/storage"
 )
 
-var redactedError = "Some output has been redacted, use `jindou latest-error` to see it or run again with --debug for additional debug output"
+var redactedError = "Some output has been redacted, use `kunlun latest-error` to see it or run again with --debug for additional debug output"
 
 type Executor struct {
 	cli          terraformCLI
@@ -66,7 +66,7 @@ func (e Executor) Setup(template string, input map[string]interface{}) error {
 		return err
 	}
 
-	err = e.fs.WriteFile(filepath.Join(terraformDir, "jindou-template.tf"), []byte(template), storage.StateMode)
+	err = e.fs.WriteFile(filepath.Join(terraformDir, "kunlun-template.tf"), []byte(template), storage.StateMode)
 	if err != nil {
 		return fmt.Errorf("Write terraform template: %s", err)
 	}
@@ -86,7 +86,7 @@ func (e Executor) Setup(template string, input map[string]interface{}) error {
 		return fmt.Errorf("Write .gitignore for terraform binaries: %s", err)
 	}
 
-	err = e.fs.WriteFile(filepath.Join(varsDir, "jindou.tfvars"), []byte(formatVars(input)), storage.StateMode)
+	err = e.fs.WriteFile(filepath.Join(varsDir, "kunlun.tfvars"), []byte(formatVars(input)), storage.StateMode)
 	if err != nil {
 		return fmt.Errorf("Write terraform vars: %s", err)
 	}

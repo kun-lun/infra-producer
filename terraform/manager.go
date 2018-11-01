@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/xplaceholder/infra-producer/storage"
-	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 	"github.com/coreos/go-semver/semver"
+	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
+	"github.com/xplaceholder/infra-producer/storage"
 )
 
 type Manager struct {
@@ -80,12 +80,12 @@ func (m Manager) ValidateVersion() error {
 	return nil
 }
 
-func (m Manager) Setup(manifest artifacts.InfraManifest, jindouState storage.State) error {
+func (m Manager) Setup(manifest artifacts.InfraManifest, kunlunState storage.State) error {
 	m.logger.Step("generating terraform template")
-	template := m.templateGenerator.Generate(manifest, jindouState)
+	template := m.templateGenerator.Generate(manifest, kunlunState)
 
 	m.logger.Step("generating terraform variables")
-	input, err := m.inputGenerator.Generate(manifest, jindouState)
+	input, err := m.inputGenerator.Generate(manifest, kunlunState)
 	if err != nil {
 		return fmt.Errorf("Input generator generate: %s", err)
 	}
@@ -94,10 +94,10 @@ func (m Manager) Setup(manifest artifacts.InfraManifest, jindouState storage.Sta
 		return fmt.Errorf("Executor setup: %s", err)
 	}
 
-	return m.Init(jindouState)
+	return m.Init(kunlunState)
 }
 
-func (m Manager) Init(jindouState storage.State) error {
+func (m Manager) Init(kunlunState storage.State) error {
 	m.logger.Step("terraform init")
 	if err := m.executor.Init(); err != nil {
 		return fmt.Errorf("Executor init: %s", err)
@@ -105,49 +105,49 @@ func (m Manager) Init(jindouState storage.State) error {
 	return nil
 }
 
-func (m Manager) Apply(jindouState storage.State) (storage.State, error) {
+func (m Manager) Apply(kunlunState storage.State) (storage.State, error) {
 	m.logger.Step("terraform init")
 	if err := m.executor.Init(); err != nil {
-		return jindouState, fmt.Errorf("Executor init: %s", err)
+		return kunlunState, fmt.Errorf("Executor init: %s", err)
 	}
 
 	m.logger.Step("terraform apply")
-	err := m.executor.Apply(m.inputGenerator.Credentials(jindouState))
+	err := m.executor.Apply(m.inputGenerator.Credentials(kunlunState))
 
-	jindouState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
+	kunlunState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
 
 	if err != nil {
-		return jindouState, fmt.Errorf("Executor apply: %s", err)
+		return kunlunState, fmt.Errorf("Executor apply: %s", err)
 	}
 
-	return jindouState, nil
+	return kunlunState, nil
 }
 
-func (m Manager) Destroy(jindouState storage.State) (storage.State, error) {
+func (m Manager) Destroy(kunlunState storage.State) (storage.State, error) {
 	m.logger.Step("terraform destroy")
-	err := m.executor.Destroy(m.inputGenerator.Credentials(jindouState))
+	err := m.executor.Destroy(m.inputGenerator.Credentials(kunlunState))
 
-	jindouState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
+	kunlunState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
 
 	if err != nil {
-		return jindouState, fmt.Errorf("Executor destroy: %s", err)
+		return kunlunState, fmt.Errorf("Executor destroy: %s", err)
 	}
 
 	m.logger.Step("finished destroying infrastructure")
-	return jindouState, nil
+	return kunlunState, nil
 }
 
-func (m Manager) Validate(jindouState storage.State) (storage.State, error) {
+func (m Manager) Validate(kunlunState storage.State) (storage.State, error) {
 	m.logger.Step("terraform validate")
-	err := m.executor.Validate(m.inputGenerator.Credentials(jindouState))
+	err := m.executor.Validate(m.inputGenerator.Credentials(kunlunState))
 
-	jindouState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
+	kunlunState.LatestTFOutput = readAndReset(m.terraformOutputBuffer)
 
 	if err != nil {
-		return jindouState, fmt.Errorf("Executor validate: %s", err)
+		return kunlunState, fmt.Errorf("Executor validate: %s", err)
 	}
 
-	return jindouState, nil
+	return kunlunState, nil
 }
 
 func (m Manager) GetOutputs() (Outputs, error) {

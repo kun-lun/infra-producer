@@ -23,7 +23,7 @@ variable "location" {
   default = "eastus2"
 }
 
-variable "jindou_virtual_network_address_space" {
+variable "kunlun_virtual_network_address_space" {
   type    = "list"
   default = ["10.0.0.0/16"]
 }

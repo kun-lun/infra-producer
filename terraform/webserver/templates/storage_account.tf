@@ -1,6 +1,6 @@
 resource "azurerm_storage_account" "default_storage_account" {
   name                      = "${replace(var.env_name, "-", "")}"
-  resource_group_name       = "${azurerm_resource_group.jindou_resource_group.name}"
+  resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
   location                  = "${var.location}"
   account_kind              = "Storage"
   account_tier              = "Standard"

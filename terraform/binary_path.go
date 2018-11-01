@@ -10,7 +10,7 @@ import (
 )
 
 const tfBinDataAssetName = "terraform"
-const jindouTfBinaryName = "jindou-terraform"
+const kunlunTfBinaryName = "kunlun-terraform"
 
 func BinaryPath() (string, error) {
 	return BinaryPathInjected(afero.Afero{afero.NewOsFs()})
@@ -25,7 +25,7 @@ type tfBinaryPathFs interface {
 }
 
 func BinaryPathInjected(fs tfBinaryPathFs) (string, error) {
-	path := filepath.Join(fs.GetTempDir(""), jindouTfBinaryName)
+	path := filepath.Join(fs.GetTempDir(""), kunlunTfBinaryName)
 	exists, err := fs.Exists(path)
 	if err != nil {
 		return "", err

@@ -25,12 +25,12 @@ var _ = Describe("InfraProducer", func() {
 
 	BeforeEach(func() {
 		artifact = "artifacts/lamp.yml"
-		stateDir = filepath.Join("/tmp/", "jindou")
+		stateDir = filepath.Join("/tmp/", "kunlun")
 		os.MkdirAll(stateDir, os.ModePerm)
 		globalConfig = application.GlobalConfiguration{
 			StateDir: stateDir,
 			Debug:    false,
-			Name:     "jindou",
+			Name:     "kunlun",
 		}
 		azureConfig = storage.Azure{
 			Region:		"eastus2",
@@ -43,7 +43,7 @@ var _ = Describe("InfraProducer", func() {
 		state = storage.State{
 			Version:	1,
 			ID:		"bd73f71c-345a-434d-98bc-4454e6804a00",
-			EnvName:	"jindou",
+			EnvName:	"kunlun",
 			Azure:		azureConfig,
 			LatestTFOutput: "",
 

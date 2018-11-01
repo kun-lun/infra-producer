@@ -1,28 +1,28 @@
-resource "azurerm_public_ip" "jindou_devbox_public_ip" {
-  name                         = "jindou_devbox_public_ip"
-  location                     = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name          = "${azurerm_resource_group.jindou_resource_group.name}"
+resource "azurerm_public_ip" "kunlun_devbox_public_ip" {
+  name                         = "kunlun_devbox_public_ip"
+  location                     = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name          = "${azurerm_resource_group.kunlun_resource_group.name}"
   public_ip_address_allocation = "static"
 }
 
-resource "azurerm_network_interface" "jindou_devbox_nic" {
+resource "azurerm_network_interface" "kunlun_devbox_nic" {
   name                = "${var.env_name}-devbox-nic"
-  location            = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.jindou_resource_group.name}"
+  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
 
   ip_configuration {
     name                          = "${var.env_name}-devbox-nicip"
     subnet_id                     = "${azurerm_subnet.san_subnet.id}"
     private_ip_address_allocation = "dynamic"
-    public_ip_address_id          = "${azurerm_public_ip.jindou_devbox_public_ip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.kunlun_devbox_public_ip.id}"
   }
 }
 
-resource "azurerm_virtual_machine" "jindou_devbox" {
-  name                  = "${var.env_name}-jindou-devbox"
-  location              = "${azurerm_resource_group.jindou_resource_group.location}"
-  resource_group_name   = "${azurerm_resource_group.jindou_resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.jindou_devbox_nic.id}"]
+resource "azurerm_virtual_machine" "kunlun_devbox" {
+  name                  = "${var.env_name}-kunlun-devbox"
+  location              = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name   = "${azurerm_resource_group.kunlun_resource_group.name}"
+  network_interface_ids = ["${azurerm_network_interface.kunlun_devbox_nic.id}"]
   vm_size               = "Standard_DS2_v2"
 
 
@@ -40,7 +40,7 @@ resource "azurerm_virtual_machine" "jindou_devbox" {
   }
 
   storage_os_disk {
-    name              = "jindoudevboxdisk"
+    name              = "kunlundevboxdisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
