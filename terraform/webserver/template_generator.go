@@ -16,6 +16,7 @@ type templates struct {
 	loadBalancer  string
 	devbox        string
 	output        string
+	nsg           string
 }
 
 type TemplateGenerator struct{}
@@ -28,7 +29,7 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 	tmpls := readTemplates()
 
 	template := strings.Join(
-		[]string{tmpls.provider, tmpls.vars, tmpls.resourceGroup, tmpls.network, tmpls.output, tmpls.vmss, tmpls.devbox, tmpls.loadBalancer},
+		[]string{tmpls.provider, tmpls.vars, tmpls.resourceGroup, tmpls.network, tmpls.output, tmpls.vmss, tmpls.devbox, tmpls.loadBalancer, tmpls.nsg},
 		"\n",
 	)
 
@@ -45,6 +46,6 @@ func readTemplates() templates {
 	tmpls.vmss = string(MustAsset("templates/vmss.tf"))
 	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
 	tmpls.output = string(MustAsset("templates/output.tf"))
-
+	tmpls.nsg = string(MustAsset("templates/network_security_group.tf"))
 	return tmpls
 }
