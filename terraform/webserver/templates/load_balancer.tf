@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "jindou_load_balancer_ip" {
 }
 
 resource "azurerm_lb" "jindou_load_balancer" {
-  name                = "${var.env_name}"
+  name                = "${var.env_name}-lb"
   location            = "${azurerm_resource_group.jindou_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.jindou_resource_group.name}"
   sku                 = "${var.load_balancer_sku}"

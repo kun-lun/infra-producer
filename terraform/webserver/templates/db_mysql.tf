@@ -10,9 +10,9 @@ variable "backup_retention_days" {
   default = 35
 }
 
-variable "username" {}
+variable "database_username" {}
 
-variable "password" {}
+variable "database_password" {}
 
 resource "azurerm_mysql_server" "db_mysql" {
   name                      = "${var.env_name}"
@@ -32,8 +32,8 @@ resource "azurerm_mysql_server" "db_mysql" {
     geo_redundant_backup = "Disabled"
   }
 
-  administrator_login = "${var.username}"
-  administrator_login_password = "${var.password}"
+  administrator_login = "${var.database_username}"
+  administrator_login_password = "${var.database_password}"
   version = "${var.engine_version}"
   ssl_enforcement = "Enabled"
 }

@@ -1,8 +1,8 @@
 package webserver
 
 import (
-	"github.com/xplaceholder/infra-producer/storage"
 	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
+	"github.com/xplaceholder/infra-producer/storage"
 )
 
 type InputGenerator struct {
