@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	uuid "github.com/nu7hatch/gouuid"
 	"github.com/kun-lun/common/fileio"
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 var (
