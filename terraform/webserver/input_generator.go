@@ -13,10 +13,10 @@ func NewInputGenerator() InputGenerator {
 }
 
 func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) (map[string]interface{}, error) {
-	dbUsername := manifest.Databases[0].OriginUsername
-	dbPassword := manifest.Databases[0].OriginPassword
-	dbStorage := manifest.Databases[0].Storage
-	dbCore := manifest.Databases[0].Core
+	dbUsername := manifest.Database.Username
+	dbPassword := manifest.Database.Password
+	dbStorage := manifest.Database.Storage
+	dbCore := manifest.Database.Cores
 
 	loadBalancerSKU := manifest.LoadBalancer.SKU
 
