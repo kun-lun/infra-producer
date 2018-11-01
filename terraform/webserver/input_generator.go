@@ -1,6 +1,8 @@
 package webserver
 
 import (
+	"strconv"
+
 	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 	"github.com/xplaceholder/infra-producer/storage"
 )
@@ -15,12 +17,12 @@ func NewInputGenerator() InputGenerator {
 func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) (map[string]interface{}, error) {
 	dbUsername := manifest.Database.Username
 	dbPassword := manifest.Database.Password
-	dbStorage := string(manifest.Database.Storage)
-	dbCore := string(manifest.Database.Cores)
+	dbStorage := strconv.Itoa(manifest.Database.Storage)
+	dbCore := strconv.Itoa(manifest.Database.Cores)
 
 	loadBalancerSKU := manifest.LoadBalancer.SKU
 
-	vmCount := string(manifest.VMGroups[0].Count)
+	vmCount := strconv.Itoa(manifest.VMGroups[0].Count)
 	vmSize := manifest.VMGroups[0].SKU
 
 	input := map[string]interface{}{
