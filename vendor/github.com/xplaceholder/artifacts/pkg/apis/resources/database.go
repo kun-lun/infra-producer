@@ -6,6 +6,7 @@ type Database struct {
 	Version string `yaml:"version"`
 	// Storage capacity, in MB
 	Storage        string `yaml:"storage"`
+	Core           string `yaml:"core"`
 	OriginHost     string `yaml:"origin_host"`
 	OriginDatabase string `yaml:"origin_database"`
 	OriginUsername string `yaml:"origin_username"`
