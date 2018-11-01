@@ -33,7 +33,7 @@
     "pkg/apis/resources",
   ]
   pruneopts = "UT"
-  revision = "146ed5330dd9bcfcee917ee961ac47bf92aa2d74"
+  revision = "06a1e4ae4a05f48d6f2d41b4f5c8093805818ade"
 
 [[projects]]
   branch = "draft"
@@ -168,11 +168,12 @@
   version = "v1.4.7"
 
 [[projects]]
-  digest = "1:3c839a777de0e6da035c9de900b60cbec463b0a89351192c1ea083eaf9e0fce0"
+  branch = "v1"
+  digest = "1:0caa92e17bc0b65a98c63e5bc76a9e844cd5e56493f8fdbb28fad101a16254d9"
   name = "gopkg.in/tomb.v1"
   packages = ["."]
   pruneopts = "UT"
-  revision = "c131134a1947e9afd9cecfe11f4c6dff0732ae58"
+  revision = "dd632973f1e7218eb1089048e0798ec9ae7dceb8"
 
 [[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"

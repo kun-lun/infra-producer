@@ -1,3 +1,23 @@
+resource "azurerm_network_security_group" "kunlun_vmss_server_network_security_group" {
+  name                = "${var.env_name}-server-nsg"
+  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
+}
+
+resource "azurerm_network_security_rule" "kunlun_vmss_server_network_security_rule_http" {
+  name                        = "Allow-Http"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = "${azurerm_resource_group.kunlun_resource_group.name}"
+  network_security_group_name = "${azurerm_network_security_group.kunlun_vmss_server_network_security_group.name}"
+}
+
 resource "azurerm_lb_nat_pool" "kunlun_vmss_nat_pool" {
   resource_group_name            = "${azurerm_resource_group.kunlun_resource_group.name}"
   name                           = "kunlun-ssh"
@@ -10,11 +30,10 @@ resource "azurerm_lb_nat_pool" "kunlun_vmss_nat_pool" {
 }
 
 resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
-  name                = "mytestscaleset-1"
-  location            = "${azurerm_resource_group.kunlun_resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
-  upgrade_policy_mode = "Manual"
-
+  name                      = "${var.env_name}-vmss"
+  location                  = "${azurerm_resource_group.kunlun_resource_group.location}"
+  resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
+  upgrade_policy_mode       = "Manual"
   sku {
     name     = "${var.web_server_vm_size}"
     tier     = "Standard"
@@ -55,6 +74,7 @@ resource "azurerm_virtual_machine_scale_set" "kunlun_vmss" {
   network_profile {
     name    = "kunlunvmssnetworkprofile"
     primary = true
+    network_security_group_id = "${azurerm_network_security_group.kunlun_vmss_server_network_security_group.id}"
 
     ip_configuration {
       name                                   = "kunlunvmssnetworkipconfiguration"

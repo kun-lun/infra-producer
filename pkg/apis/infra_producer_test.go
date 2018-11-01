@@ -30,7 +30,7 @@ var _ = Describe("InfraProducer", func() {
 		os.MkdirAll(stateDir, os.ModePerm)
 		globalConfig = application.GlobalConfiguration{
 			StateDir: stateDir,
-			Debug:    false,
+			Debug:    true,
 			Name:     "kunlun",
 		}
 		azureConfig = storage.Azure{

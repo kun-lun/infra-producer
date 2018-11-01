@@ -9,17 +9,16 @@ import (
 
 type templates struct {
 	mysql         string
-	devbox        string
+	jumpbox       string
 	loadBalancer  string
-	nsg           string
 	output        string
 	provider      string
 	resourceGroup string
 	subnet        string
 	vars          string
-	vmss          string
+	vmServer      string
+	vmssServer    string
 	vnet          string
-	webServer     string
 }
 
 type TemplateGenerator struct{}
@@ -34,15 +33,14 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 	template := strings.Join(
 		[]string{
 			tmpls.mysql,
-			tmpls.devbox,
+			tmpls.jumpbox,
 			tmpls.loadBalancer,
-			tmpls.nsg,
 			tmpls.output,
 			tmpls.provider,
 			tmpls.resourceGroup,
 			tmpls.subnet,
 			tmpls.vars,
-			tmpls.vmss,
+			tmpls.vmssServer,
 			tmpls.vnet,
 		},
 		"\n",
@@ -54,16 +52,15 @@ func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state stor
 func readTemplates() templates {
 	tmpls := templates{}
 	tmpls.mysql = string(MustAsset("templates/db_mysql.tf"))
-	tmpls.devbox = string(MustAsset("templates/devbox.tf"))
+	tmpls.jumpbox = string(MustAsset("templates/jumpbox.tf"))
 	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
-	tmpls.nsg = string(MustAsset("templates/network_security_group.tf"))
 	tmpls.output = string(MustAsset("templates/output.tf"))
 	tmpls.provider = string(MustAsset("templates/provider.tf"))
 	tmpls.resourceGroup = string(MustAsset("templates/resource_group.tf"))
 	tmpls.subnet = string(MustAsset("templates/subnet.tf"))
 	tmpls.vars = string(MustAsset("templates/vars.tf"))
-	tmpls.vmss = string(MustAsset("templates/vmss.tf"))
+	tmpls.vmServer = string(MustAsset("templates/vm_web_server.tf"))
+	tmpls.vmssServer = string(MustAsset("templates/vmss_web_server.tf"))
 	tmpls.vnet = string(MustAsset("templates/vnet.tf"))
-	tmpls.webServer = string(MustAsset("templates/web_server.tf"))
 	return tmpls
 }

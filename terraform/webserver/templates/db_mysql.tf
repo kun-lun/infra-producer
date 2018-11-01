@@ -15,7 +15,7 @@ variable "database_username" {}
 variable "database_password" {}
 
 resource "azurerm_mysql_server" "db_mysql" {
-  name                      = "${var.env_name}"
+  name                      = "${var.env_name}-mysql"
   resource_group_name       = "${azurerm_resource_group.kunlun_resource_group.name}"
   location                  = "${var.location}"
 
