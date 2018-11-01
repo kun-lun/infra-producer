@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/coreos/go-semver/semver"
-	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
-	"github.com/xplaceholder/infra-producer/storage"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	"github.com/kun-lun/infra-producer/storage"
 )
 
 type Manager struct {

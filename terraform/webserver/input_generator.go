@@ -3,8 +3,8 @@ package webserver
 import (
 	"strconv"
 
-	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
-	"github.com/xplaceholder/infra-producer/storage"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	"github.com/kun-lun/infra-producer/storage"
 )
 
 type InputGenerator struct {

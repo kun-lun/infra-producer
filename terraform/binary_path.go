@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/xplaceholder/infra-producer/terraform/binary_dist"
+	"github.com/kun-lun/infra-producer/terraform/binary_dist"
 	"github.com/spf13/afero"
 )
 

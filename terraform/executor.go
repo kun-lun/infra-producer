@@ -12,8 +12,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/xplaceholder/common/fileio"
-	"github.com/xplaceholder/infra-producer/storage"
+	"github.com/kun-lun/common/fileio"
+	"github.com/kun-lun/infra-producer/storage"
 )
 
 var redactedError = "Some output has been redacted, use `kunlun latest-error` to see it or run again with --debug for additional debug output"

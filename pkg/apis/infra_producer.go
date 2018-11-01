@@ -8,12 +8,12 @@ import (
 	"os"
 	"path/filepath"
 
+	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	"github.com/kun-lun/infra-producer/application"
+	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/infra-producer/terraform"
+	webserverterraform "github.com/kun-lun/infra-producer/terraform/webserver"
 	"github.com/spf13/afero"
-	"github.com/xplaceholder/infra-producer/application"
-	"github.com/xplaceholder/infra-producer/storage"
-	"github.com/xplaceholder/infra-producer/terraform"
-	webserverterraform "github.com/xplaceholder/infra-producer/terraform/webserver"
-	artifacts "github.com/xplaceholder/artifacts/pkg/apis/manifests"
 )
 
 type InfraProducer struct {

@@ -24,10 +24,35 @@
 #   go-tests = true
 #   unused-packages = true
 
-[[constraint]]
-  name = "github.com/xplaceholder/common"
-  branch = "draft"
 
-[[override]]
-  name = "gopkg.in/fsnotify.v1"
-  source = "https://github.com/fsnotify/fsnotify.git"
+[[constraint]]
+  name = "github.com/coreos/go-semver"
+  version = "0.2.0"
+
+[[constraint]]
+  branch = "draft"
+  name = "github.com/kun-lun/artifacts"
+
+[[constraint]]
+  branch = "draft"
+  name = "github.com/kun-lun/common"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/nu7hatch/gouuid"
+
+[[constraint]]
+  name = "github.com/onsi/ginkgo"
+  version = "1.6.0"
+
+[[constraint]]
+  name = "github.com/onsi/gomega"
+  version = "1.4.2"
+
+[[constraint]]
+  name = "github.com/spf13/afero"
+  version = "1.1.2"
+
+[prune]
+  go-tests = true
+  unused-packages = true
