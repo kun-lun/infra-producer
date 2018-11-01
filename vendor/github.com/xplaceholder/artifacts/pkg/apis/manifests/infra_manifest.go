@@ -14,6 +14,7 @@ type InfraManifest struct {
 	Region       string                  `yaml:"region,omitempty"`
 	LoadBalancer *resources.LoadBalancer `yaml:"load_balancer,omitempty"`
 	VMGroups     []resources.VMGroup     `yaml:"vm_groups,omitempty"`
+	Databases    []resources.Database    `yaml:"database,omitempty"`
 }
 
 // ToYAML converts the object to YAML bytes
