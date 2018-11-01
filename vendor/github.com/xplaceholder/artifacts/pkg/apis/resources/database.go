@@ -2,19 +2,13 @@ package resources
 
 // Database contains information to deploy a database on VM(s)
 type Database struct {
-	Type    string `yaml:"type"`
-	Version string `yaml:"version"`
-	// Storage capacity, in MB
-	Storage        string `yaml:"storage"`
-	Core           string `yaml:"core"`
-	OriginHost     string `yaml:"origin_host"`
-	OriginDatabase string `yaml:"origin_database"`
-	OriginUsername string `yaml:"origin_username"`
-	OriginPassword string `yaml:"origin_password"`
-	EnvVarHost     string `yaml:"env_var_host"`
-	EnvVarDatabase string `yaml:"env_var_database"`
-	EnvVarUsername string `yaml:"env_var_username"`
-	EnvVarPassword string `yaml:"env_var_password"`
+	Engine              string `yaml:"engine"`
+	EngineVersion       string `yaml:"engine_version"`
+	Storage             int    `yaml:"storage"`
+	Cores               int    `yaml:"cores"`
+	BackupRetentionDays int    `yaml:"backup_retention_days"`
+	Username            string `yaml:"username"`
+	Password            string `yaml:"password"`
 }
 
 const (

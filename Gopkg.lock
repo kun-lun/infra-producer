@@ -92,7 +92,7 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:91d4a217f415bf079ca6d1a06a4ef48587c2c7443190c70a75a0a0bcd20dfe19"
+  digest = "1:41e508dc88b17917aab31970340f4cbd42621868655c6730455a9bffe7756543"
   name = "github.com/xplaceholder/artifacts"
   packages = [
     "pkg/apis/basic",
@@ -100,7 +100,7 @@
     "pkg/apis/resources",
   ]
   pruneopts = ""
-  revision = "e0ed88c41e631d42cc5bca9b921758965c978c52"
+  revision = "1164b38696fd2e1a6b06fe7a126be12d205c71c6"
 
 [[projects]]
   branch = "draft"
