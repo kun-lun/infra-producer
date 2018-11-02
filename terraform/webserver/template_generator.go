@@ -1,10 +1,9 @@
 package webserver
 
 import (
-	"strings"
-
 	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
 	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/infra-producer/terraform/detector"
 )
 
 type templates struct {
@@ -21,31 +20,27 @@ type templates struct {
 	vnet          string
 }
 
-type TemplateGenerator struct{}
+type TemplateGenerator struct {
+	templates templates
+	detectors []detector.Detector
+}
 
 func NewTemplateGenerator() TemplateGenerator {
-	return TemplateGenerator{}
+	tg := TemplateGenerator{
+		templates: readTemplates(),
+	}
+	tg.detectors = []detector.Detector{
+		newInfraDetector(),
+		newLoadBalancerDetector(),
+	}
+	return tg
 }
 
 func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) string {
-	tmpls := readTemplates()
-
-	template := strings.Join(
-		[]string{
-			tmpls.mysql,
-			tmpls.jumpbox,
-			tmpls.loadBalancer,
-			tmpls.output,
-			tmpls.provider,
-			tmpls.resourceGroup,
-			tmpls.subnet,
-			tmpls.vars,
-			tmpls.vmssServer,
-			tmpls.vnet,
-		},
-		"\n",
-	)
-
+	var template string
+	for _, d := range t.detectors {
+		template += d.DetectTemplate(manifest, state, t.templates)
+	}
 	return template
 }
 
