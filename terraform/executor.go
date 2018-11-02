@@ -13,7 +13,7 @@ import (
 	"strings"
 
 	"github.com/kun-lun/common/fileio"
-	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/common/storage"
 )
 
 var redactedError = "Some output has been redacted, use `kunlun latest-error` to see it or run again with --debug for additional debug output"

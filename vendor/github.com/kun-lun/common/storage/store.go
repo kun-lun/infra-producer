@@ -5,19 +5,15 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 
 	"github.com/kun-lun/common/fileio"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
-var (
-	marshalIndent = json.MarshalIndent
-	uuidNewV4     = uuid.NewV4
-)
-
 const (
 	STATE_SCHEMA = 1
-	STATE_FILE   = "kunlun-state.json"
+	STATE_FILE   = "kl-state.json"
 )
 
 type Store struct {
@@ -49,17 +45,21 @@ func (s Store) Set(state State) error {
 		return fmt.Errorf("Stat state dir: %s", err)
 	}
 
+	if reflect.DeepEqual(state, State{}) {
+		return nil
+	}
+
 	state.Version = s.stateSchema
 
 	if state.ID == "" {
-		uuid, err := uuidNewV4()
+		uuid, err := uuid.NewV4()
 		if err != nil {
 			return fmt.Errorf("Create state ID: %s", err)
 		}
 		state.ID = uuid.String()
 	}
 
-	jsonData, err := marshalIndent(state, "", "\t")
+	jsonData, err := json.MarshalIndent(state, "", "\t")
 	if err != nil {
 		return err
 	}
@@ -77,8 +77,27 @@ func (s Store) GetStateDir() string {
 	return s.dir
 }
 
+// GetInfraDir get the infrastructure folder.
+func (s Store) GetInfraDir() (string, error) {
+	return s.getDir("infra", os.ModePerm)
+}
+
+// GetTerraformDir get the terraform folder, this should be the sub folder of infra.
 func (s Store) GetTerraformDir() (string, error) {
-	return s.getDir("terraform", os.ModePerm)
+	return s.getDir("infra/terraform", os.ModePerm)
+}
+
+// GetArtifactsDir get artifacts folder
+func (s Store) GetArtifactsDir() (string, error) {
+	return s.getDir("artifacts", os.ModePerm)
+}
+
+func (s Store) GetDeploymentsDir() (string, error) {
+	return s.getDir("deployments", os.ModePerm)
+}
+
+func (s Store) GetAnsibleDir() (string, error) {
+	return s.getDir("deployments/ansible", os.ModePerm)
 }
 
 func (s Store) GetVarsDir() (string, error) {

@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
-	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/common/storage"
 )
 
 type InputGenerator struct {
@@ -26,7 +26,7 @@ func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage
 	vmSize := manifest.VMGroups[0].SKU
 
 	input := map[string]interface{}{
-		"env_name":            state.EnvName,
+		"env_name":            state.EnvID,
 		"region":              state.Azure.Region,
 		"database_username":   dbUsername,
 		"database_password":   dbPassword,

@@ -10,15 +10,15 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/kun-lun/infra-producer/application"
-	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/common/configuration"
+	"github.com/kun-lun/common/storage"
 )
 
 var _ = Describe("InfraProducer", func() {
 	var (
 		artifact      string
 		stateDir      string
-		globalConfig  application.GlobalConfiguration
+		globalConfig  configuration.GlobalConfiguration
 		azureConfig   storage.Azure
 		state         storage.State
 		infraProducer InfraProducer
@@ -28,7 +28,7 @@ var _ = Describe("InfraProducer", func() {
 		artifact = "artifacts/lamp.yml"
 		stateDir = filepath.Join("/tmp/", "kunlun")
 		os.MkdirAll(stateDir, os.ModePerm)
-		globalConfig = application.GlobalConfiguration{
+		globalConfig = configuration.GlobalConfiguration{
 			StateDir: stateDir,
 			Debug:    true,
 			Name:     "kunlun",

@@ -37,11 +37,16 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:69562d48f392fbb667cc83574264dbc41d73af20105b54b491b8b5fa9e4ef7ac"
+  digest = "1:59bf3397ec0a5f30acd99d91f40044b2684444e7a355b0d17c778a7c9e12740e"
   name = "github.com/kun-lun/common"
-  packages = ["fileio"]
+  packages = [
+    "configuration",
+    "fileio",
+    "logger",
+    "storage",
+  ]
   pruneopts = "UT"
-  revision = "5373108824cc1fac15ac0274e27ea2d25daf7d16"
+  revision = "2e85ad0ed3592086b321f1bf29a3d87d7f373062"
 
 [[projects]]
   branch = "master"
@@ -189,8 +194,10 @@
   input-imports = [
     "github.com/coreos/go-semver/semver",
     "github.com/kun-lun/artifacts/pkg/apis/manifests",
+    "github.com/kun-lun/common/configuration",
     "github.com/kun-lun/common/fileio",
-    "github.com/nu7hatch/gouuid",
+    "github.com/kun-lun/common/logger",
+    "github.com/kun-lun/common/storage",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/spf13/afero",
