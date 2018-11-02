@@ -7,7 +7,7 @@ import (
 
 	"github.com/coreos/go-semver/semver"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
-	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/common/storage"
 )
 
 type Manager struct {

@@ -9,8 +9,9 @@ import (
 	"path/filepath"
 
 	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
-	"github.com/kun-lun/infra-producer/application"
-	"github.com/kun-lun/infra-producer/storage"
+	"github.com/kun-lun/common/configuration"
+	"github.com/kun-lun/common/logger"
+	"github.com/kun-lun/common/storage"
 	"github.com/kun-lun/infra-producer/terraform"
 	webserverterraform "github.com/kun-lun/infra-producer/terraform/webserver"
 	"github.com/spf13/afero"
@@ -20,10 +21,10 @@ type InfraProducer struct {
 	terraformManager terraform.Manager
 }
 
-func NewInfraProducer(globals application.GlobalConfiguration) InfraProducer {
+func NewInfraProducer(globals configuration.GlobalConfiguration) InfraProducer {
 	log.SetFlags(0)
 
-	logger := application.NewLogger(os.Stdout, os.Stdin)
+	logger := logger.NewLogger(os.Stdout, os.Stdin)
 
 	// File IO
 	fs := afero.NewOsFs()
