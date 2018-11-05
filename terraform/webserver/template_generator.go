@@ -3,7 +3,7 @@ package webserver
 import (
 	"strings"
 
-	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
 )
 
@@ -27,7 +27,7 @@ func NewTemplateGenerator() TemplateGenerator {
 	return TemplateGenerator{}
 }
 
-func (t TemplateGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) string {
+func (t TemplateGenerator) Generate(manifest artifacts.Manifest, state storage.State) string {
 	tmpls := readTemplates()
 
 	template := strings.Join(

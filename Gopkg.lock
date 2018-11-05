@@ -25,15 +25,11 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:79c2f9f2b94eb96ed03d3a906704d15dfbf0a2af27ec560a8d706217bb9f6681"
+  digest = "1:c465a822d7e98bfb40fa322a6d8af54b7f21c2c628c9ffa0dc239250b91eaf59"
   name = "github.com/kun-lun/artifacts"
-  packages = [
-    "pkg/apis/basic",
-    "pkg/apis/manifests",
-    "pkg/apis/resources",
-  ]
+  packages = ["pkg/apis"]
   pruneopts = "UT"
-  revision = "06a1e4ae4a05f48d6f2d41b4f5c8093805818ade"
+  revision = "4838cb79453d1e9cc314f79a6e1af62c094ae974"
 
 [[projects]]
   branch = "draft"
@@ -181,19 +177,20 @@
   revision = "dd632973f1e7218eb1089048e0798ec9ae7dceb8"
 
 [[projects]]
-  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
+  branch = "v2"
+  digest = "1:f3d316b39b7bfef984e663a693b4139448c90add780ce558a2f3e518f857ea40"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
-  version = "v2.2.1"
+  revision = "29f40ce76a5987e8f1829a808b7e1f2d0ace0e6a"
+  source = "https://github.com/norshtein/yaml"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
     "github.com/coreos/go-semver/semver",
-    "github.com/kun-lun/artifacts/pkg/apis/manifests",
+    "github.com/kun-lun/artifacts/pkg/apis",
     "github.com/kun-lun/common/configuration",
     "github.com/kun-lun/common/fileio",
     "github.com/kun-lun/common/logger",

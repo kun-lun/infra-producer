@@ -3,7 +3,7 @@ package webserver
 import (
 	"strconv"
 
-	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
 )
 
@@ -14,13 +14,13 @@ func NewInputGenerator() InputGenerator {
 	return InputGenerator{}
 }
 
-func (i InputGenerator) Generate(manifest artifacts.InfraManifest, state storage.State) (map[string]interface{}, error) {
-	dbUsername := manifest.Database.Username
-	dbPassword := manifest.Database.Password
-	dbStorage := strconv.Itoa(manifest.Database.Storage)
-	dbCore := strconv.Itoa(manifest.Database.Cores)
+func (i InputGenerator) Generate(manifest artifacts.Manifest, state storage.State) (map[string]interface{}, error) {
+	dbUsername := manifest.Databases[0].Username
+	dbPassword := manifest.Databases[0].Password
+	dbStorage := strconv.Itoa(manifest.Databases[0].Storage)
+	dbCore := strconv.Itoa(manifest.Databases[0].Cores)
 
-	loadBalancerSKU := manifest.LoadBalancer.SKU
+	loadBalancerSKU := manifest.LoadBalancers[0].SKU
 
 	vmCount := strconv.Itoa(manifest.VMGroups[0].Count)
 	vmSize := manifest.VMGroups[0].SKU

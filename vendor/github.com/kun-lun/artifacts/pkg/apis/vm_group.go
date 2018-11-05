@@ -1,12 +1,37 @@
-package resources
+package apis
 
 // VMGroup contains needed information to create a set of VMs on Azure. VMs in the group
 // will have the same SKU, using the same subnet.
 type VMGroup struct {
-	Name  string `yaml:"name"`
-	Count int    `yaml:"count"`
-	SKU   string `yaml:"sku"`
-	Type  string `yaml:"type"`
+	Name         string           `yaml:"name"`
+	Meta         *VMGroupMetaData `yaml:"meta,omitempty"`
+	Count        int              `yaml:"count"`
+	SKU          string           `yaml:"sku"`
+	Type         string           `yaml:"type"`
+	Storage      *VMStorage       `yaml:"storage"`
+	NetworkInfos []VMNetworkInfo  `yaml:"networks"`
+	Networks     []VMNetWork      `yaml:"anything,skip"`
+}
+
+type VMGroupMetaData struct {
+	AutoStop bool `yaml:"autostop"`
+}
+
+type VMStorage struct {
+	Image      *Image      `yaml:"image"`
+	OSDisk     *OSDisk     `yaml:"os_disk"`
+	DataDisks  []DataDisk  `yaml:"data_disks"`
+	AzureFiles []AzureFile `yaml:"azure_files"`
+}
+
+type VMNetWork struct {
+	Subnet       *Subnet
+	LoadBalancer *LoadBalancer
+}
+
+type VMNetworkInfo struct {
+	SubnetName       string `yaml:"subnet_name"`
+	LoadBalancerName string `yaml:"load_balancer_name"`
 }
 
 const (
