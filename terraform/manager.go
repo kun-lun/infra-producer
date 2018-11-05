@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/coreos/go-semver/semver"
-	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
 )
 
@@ -31,12 +31,12 @@ type executor interface {
 }
 
 type InputGenerator interface {
-	Generate(artifacts.InfraManifest, storage.State) (map[string]interface{}, error)
+	Generate(artifacts.Manifest, storage.State) (map[string]interface{}, error)
 	Credentials(state storage.State) map[string]string
 }
 
 type TemplateGenerator interface {
-	Generate(artifacts.InfraManifest, storage.State) string
+	Generate(artifacts.Manifest, storage.State) string
 }
 
 type logger interface {
@@ -80,7 +80,7 @@ func (m Manager) ValidateVersion() error {
 	return nil
 }
 
-func (m Manager) Setup(manifest artifacts.InfraManifest, kunlunState storage.State) error {
+func (m Manager) Setup(manifest artifacts.Manifest, kunlunState storage.State) error {
 	m.logger.Step("generating terraform template")
 	template := m.templateGenerator.Generate(manifest, kunlunState)
 

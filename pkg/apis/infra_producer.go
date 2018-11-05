@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	artifacts "github.com/kun-lun/artifacts/pkg/apis/manifests"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/configuration"
 	"github.com/kun-lun/common/logger"
 	"github.com/kun-lun/common/storage"
@@ -60,12 +60,12 @@ func NewInfraProducer(globals configuration.GlobalConfiguration) InfraProducer {
 }
 
 func (ip InfraProducer) Setup(artifactsBytes []byte, state storage.State) error {
-	im, err := artifacts.NewInfraManifestFromYAML(artifactsBytes)
+	im, err := artifacts.NewManifestFromYAML(artifactsBytes)
 	if err != nil {
 		return err
 	}
 
-	ip.terraformManager.Setup(im, state)
+	ip.terraformManager.Setup(*im, state)
 
 	return nil
 }

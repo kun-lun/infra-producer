@@ -30,12 +30,12 @@
   version = "0.2.0"
 
 [[constraint]]
-  branch = "draft"
   name = "github.com/kun-lun/artifacts"
+  branch = "draft"
 
 [[constraint]]
-  branch = "draft"
   name = "github.com/kun-lun/common"
+  branch = "draft"
 
 [[constraint]]
   name = "github.com/onsi/ginkgo"
@@ -48,6 +48,11 @@
 [[constraint]]
   name = "github.com/spf13/afero"
   version = "1.1.2"
+
+[[override]]
+  name = "gopkg.in/yaml.v2"
+  source = "https://github.com/norshtein/yaml"
+  branch = "v2"
 
 [prune]
   go-tests = true
