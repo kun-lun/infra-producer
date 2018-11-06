@@ -29,9 +29,10 @@ var _ = Describe("InfraProducer", func() {
 		stateDir = filepath.Join("/tmp/", "kunlun")
 		os.MkdirAll(stateDir, os.ModePerm)
 		globalConfig = configuration.GlobalConfiguration{
-			StateDir: stateDir,
-			Debug:    true,
-			Name:     "kunlun",
+			StateDir:    stateDir,
+			Debug:       true,
+			Name:        "kunlun",
+			HandlerType: "Terraform",
 		}
 		azureConfig = storage.Azure{
 			Region:         "eastus2",
@@ -44,11 +45,11 @@ var _ = Describe("InfraProducer", func() {
 		state = storage.State{
 			Version:        1,
 			ID:             "bd73f71c-345a-434d-98bc-4454e6804a00",
-			EnvName:        "kunlun",
+			EnvID:          "kunlun",
 			Azure:          azureConfig,
 			LatestTFOutput: "",
 		}
-		infraProducer = NewInfraProducer(globalConfig)
+		infraProducer, _ = NewInfraProducer(globalConfig)
 	})
 
 	AfterEach(func() {

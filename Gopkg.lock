@@ -33,16 +33,28 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:59bf3397ec0a5f30acd99d91f40044b2684444e7a355b0d17c778a7c9e12740e"
+  digest = "1:403ef24cc9f567fefa99d00f481f35f638002d7c1a7355dcc08af2207cc55255"
   name = "github.com/kun-lun/common"
   packages = [
     "configuration",
+    "errors",
     "fileio",
     "logger",
     "storage",
   ]
   pruneopts = "UT"
-  revision = "2e85ad0ed3592086b321f1bf29a3d87d7f373062"
+  revision = "a3f10be08cd68f9c278aeb51b463b0248c23d7a7"
+
+[[projects]]
+  branch = "draft"
+  digest = "1:29eb27141ad8d4004835f0f956d72b3ab214e174c14e9329aced2aae6b63c609"
+  name = "github.com/kun-lun/tfhandler"
+  packages = [
+    "terraform",
+    "terraform/binary_dist",
+  ]
+  pruneopts = "UT"
+  revision = "82871f9c65eb02393f3ac10536b8f34016d07bd8"
 
 [[projects]]
   branch = "master"
@@ -189,12 +201,12 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/coreos/go-semver/semver",
     "github.com/kun-lun/artifacts/pkg/apis",
     "github.com/kun-lun/common/configuration",
-    "github.com/kun-lun/common/fileio",
+    "github.com/kun-lun/common/errors",
     "github.com/kun-lun/common/logger",
     "github.com/kun-lun/common/storage",
+    "github.com/kun-lun/tfhandler/terraform",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/spf13/afero",

@@ -6,44 +6,20 @@ import (
 	"fmt"
 
 	"github.com/coreos/go-semver/semver"
+	"github.com/kun-lun/common/logger"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
 )
 
 type Manager struct {
-	executor              executor
+	executor              Executor
 	templateGenerator     TemplateGenerator
 	inputGenerator        InputGenerator
 	terraformOutputBuffer *bytes.Buffer
-	logger                logger
+	logger                *logger.Logger
 }
 
-type executor interface {
-	Version() (string, error)
-	Setup(terraformTemplate string, inputs map[string]interface{}) error
-	Init() error
-	Apply(credentials map[string]string) error
-	Validate(credentials map[string]string) error
-	Destroy(credentials map[string]string) error
-	Outputs() (map[string]interface{}, error)
-	Output(string) (string, error)
-	IsPaved() (bool, error)
-}
-
-type InputGenerator interface {
-	Generate(artifacts.Manifest, storage.State) (map[string]interface{}, error)
-	Credentials(state storage.State) map[string]string
-}
-
-type TemplateGenerator interface {
-	Generate(artifacts.Manifest, storage.State) string
-}
-
-type logger interface {
-	Step(string, ...interface{})
-}
-
-func NewManager(executor executor, templateGenerator TemplateGenerator, inputGenerator InputGenerator, terraformOutputBuffer *bytes.Buffer, logger logger) Manager {
+func NewManager(executor Executor, templateGenerator TemplateGenerator, inputGenerator InputGenerator, terraformOutputBuffer *bytes.Buffer, logger *logger.Logger) Manager {
 	return Manager{
 		executor:              executor,
 		templateGenerator:     templateGenerator,
@@ -82,10 +58,10 @@ func (m Manager) ValidateVersion() error {
 
 func (m Manager) Setup(manifest artifacts.Manifest, kunlunState storage.State) error {
 	m.logger.Step("generating terraform template")
-	template := m.templateGenerator.Generate(manifest, kunlunState)
+	template := m.templateGenerator.GenerateTemplate(manifest, kunlunState)
 
 	m.logger.Step("generating terraform variables")
-	input, err := m.inputGenerator.Generate(manifest, kunlunState)
+	input, err := m.inputGenerator.GenerateInput(manifest, kunlunState)
 	if err != nil {
 		return fmt.Errorf("Input generator generate: %s", err)
 	}
