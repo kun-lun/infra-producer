@@ -1,4 +1,4 @@
-package webserver
+package terraform
 
 import (
 	"strings"
@@ -27,7 +27,7 @@ func NewTemplateGenerator() TemplateGenerator {
 	return TemplateGenerator{}
 }
 
-func (t TemplateGenerator) Generate(manifest artifacts.Manifest, state storage.State) string {
+func (t TemplateGenerator) GenerateTemplate(manifest artifacts.Manifest, state storage.State) string {
 	tmpls := readTemplates()
 
 	template := strings.Join(

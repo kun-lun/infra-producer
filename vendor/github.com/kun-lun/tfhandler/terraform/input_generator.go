@@ -1,4 +1,4 @@
-package webserver
+package terraform
 
 import (
 	"strconv"
@@ -14,7 +14,7 @@ func NewInputGenerator() InputGenerator {
 	return InputGenerator{}
 }
 
-func (i InputGenerator) Generate(manifest artifacts.Manifest, state storage.State) (map[string]interface{}, error) {
+func (i InputGenerator) GenerateInput(manifest artifacts.Manifest, state storage.State) (map[string]interface{}, error) {
 	dbUsername := manifest.Databases[0].Username
 	dbPassword := manifest.Databases[0].Password
 	dbStorage := strconv.Itoa(manifest.Databases[0].Storage)

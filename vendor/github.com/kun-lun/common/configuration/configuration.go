@@ -6,6 +6,7 @@ type GlobalConfiguration struct {
 	StateDir string
 	Debug    bool
 	Name     string
+	HandlerType string
 }
 
 type StringSlice []string
