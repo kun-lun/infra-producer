@@ -9,4 +9,7 @@ pipeline {
             }
         }
     }
+    options {
+        buildDiscarder(logRotator(numToKeepStr:'5'))
+    }
 }
