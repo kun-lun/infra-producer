@@ -4,4 +4,3 @@ const (
 	TerraformHandlerType   = "Terraform"
 	ARMTemplateHandlerType = "AzureRMTemplate"
 )
-
