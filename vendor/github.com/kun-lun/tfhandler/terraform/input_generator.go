@@ -1,10 +1,11 @@
 package terraform
 
 import (
-	"strconv"
+	"fmt"
 
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
+	. "github.com/kun-lun/tfhandler/terraform/templates"
 )
 
 type InputGenerator struct {
@@ -14,29 +15,58 @@ func NewInputGenerator() InputGenerator {
 	return InputGenerator{}
 }
 
-func (i InputGenerator) GenerateInput(manifest artifacts.Manifest, state storage.State) (map[string]interface{}, error) {
-	dbUsername := manifest.Databases[0].Username
-	dbPassword := manifest.Databases[0].Password
-	dbStorage := strconv.Itoa(manifest.Databases[0].Storage)
-	dbCore := strconv.Itoa(manifest.Databases[0].Cores)
+func (i InputGenerator) GenerateInput(manifest artifacts.Manifest, state storage.State) (string, error) {
+	input := ""
+	ipt, _ := NewResourceGroupInput(manifest.ResourceGroupName, manifest.Location, manifest.EnvName)
+	input += ipt
 
-	loadBalancerSKU := manifest.LoadBalancers[0].SKU
-
-	vmCount := strconv.Itoa(manifest.VMGroups[0].Count)
-	vmSize := manifest.VMGroups[0].SKU
-
-	input := map[string]interface{}{
-		"env_name":            state.EnvID,
-		"region":              state.Azure.Region,
-		"database_username":   dbUsername,
-		"database_password":   dbPassword,
-		"storage":             dbStorage,
-		"cores":               dbCore,
-		"web_server_vm_count": vmCount,
-		"web_server_vm_size":  vmSize,
-		"load_balancer_sku":   loadBalancerSKU,
+	for _, lb := range manifest.LoadBalancers {
+		ipt, err := NewLoadBalancerInput(lb)
+		if err != nil {
+			fmt.Println(err)
+			return "", err
+		}
+		input += ipt
 	}
 
+	for _, nsg := range manifest.NetworkSecurityGroups {
+		ipt, err := NewNSGInput(nsg)
+		if err != nil {
+			fmt.Println(err)
+			return "", err
+		}
+		input += ipt
+	}
+
+	for _, vnet := range manifest.VNets {
+		ipt, err := NewVirtualNetworkInput(vnet)
+		if err != nil {
+			fmt.Println(err)
+			return "", err
+		}
+		input += ipt
+	}
+
+	for _, vmg := range manifest.VMGroups {
+		fmt.Println(vmg.NetworkInfos[0].SubnetName)
+		var ipt string
+		var err error
+		if vmg.Type == "vm" {
+			ipt, err = NewVMInput(vmg)
+		} else {
+			ipt, err = NewVMSSInput(vmg)
+		}
+		if err != nil {
+			fmt.Println(err)
+			return "", err
+		}
+		input += ipt
+	}
+
+	for _, mysqlDB := range manifest.MysqlDatabases {
+		ipt, _ := NewMysqlInput(mysqlDB)
+		input += ipt
+	}
 	return input, nil
 }
 

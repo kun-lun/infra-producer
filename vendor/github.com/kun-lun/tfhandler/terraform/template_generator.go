@@ -1,25 +1,10 @@
 package terraform
 
 import (
-	"strings"
-
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/storage"
+	. "github.com/kun-lun/tfhandler/terraform/templates"
 )
-
-type templates struct {
-	mysql         string
-	jumpbox       string
-	loadBalancer  string
-	output        string
-	provider      string
-	resourceGroup string
-	subnet        string
-	vars          string
-	vmServer      string
-	vmssServer    string
-	vnet          string
-}
 
 type TemplateGenerator struct{}
 
@@ -27,40 +12,58 @@ func NewTemplateGenerator() TemplateGenerator {
 	return TemplateGenerator{}
 }
 
-func (t TemplateGenerator) GenerateTemplate(manifest artifacts.Manifest, state storage.State) string {
-	tmpls := readTemplates()
+func (t TemplateGenerator) GenerateTemplate(manifest artifacts.Manifest, state storage.State) (string, error) {
+	template := ""
 
-	template := strings.Join(
-		[]string{
-			tmpls.mysql,
-			tmpls.jumpbox,
-			tmpls.loadBalancer,
-			tmpls.output,
-			tmpls.provider,
-			tmpls.resourceGroup,
-			tmpls.subnet,
-			tmpls.vars,
-			tmpls.vmssServer,
-			tmpls.vnet,
-		},
-		"\n",
-	)
+	tmpl, _ := NewProviderTemplate()
+	template += tmpl
+	tmpl, _ = NewResourceGroupTemplate()
+	template += tmpl
 
-	return template
-}
+	for _, nsg := range manifest.NetworkSecurityGroups {
+		tmpl, err := NewNSGTemplate(nsg)
+		if err != nil {
+			return "", err
+		}
+		template += tmpl
+	}
 
-func readTemplates() templates {
-	tmpls := templates{}
-	tmpls.mysql = string(MustAsset("templates/db_mysql.tf"))
-	tmpls.jumpbox = string(MustAsset("templates/jumpbox.tf"))
-	tmpls.loadBalancer = string(MustAsset("templates/load_balancer.tf"))
-	tmpls.output = string(MustAsset("templates/output.tf"))
-	tmpls.provider = string(MustAsset("templates/provider.tf"))
-	tmpls.resourceGroup = string(MustAsset("templates/resource_group.tf"))
-	tmpls.subnet = string(MustAsset("templates/subnet.tf"))
-	tmpls.vars = string(MustAsset("templates/vars.tf"))
-	tmpls.vmServer = string(MustAsset("templates/vm_web_server.tf"))
-	tmpls.vmssServer = string(MustAsset("templates/vmss_web_server.tf"))
-	tmpls.vnet = string(MustAsset("templates/vnet.tf"))
-	return tmpls
+	for _, lb := range manifest.LoadBalancers {
+		tmpl, err := NewLoadBalancerTemplate(lb)
+		if err != nil {
+			return "", err
+		}
+		template += tmpl
+	}
+
+	for _, vnet := range manifest.VNets {
+		tmpl, err := NewVirtualNetworkTemplate(vnet)
+		if err != nil {
+			return "", err
+		}
+		template += tmpl
+	}
+
+	for _, vmg := range manifest.VMGroups {
+		var tmpl string
+		var err error
+		if vmg.Type == "vm" {
+			tmpl, err = NewVMTemplate(vmg)
+		} else {
+			tmpl, err = NewVMSSTemplate(vmg)
+		}
+		if err != nil {
+			return "", err
+		}
+		template += tmpl
+	}
+
+	for _, mysqlDB := range manifest.MysqlDatabases {
+		tmpl, err := NewMysqlTemplate(mysqlDB)
+		if err != nil {
+			return "", err
+		}
+		template += tmpl
+	}
+	return template, nil
 }
