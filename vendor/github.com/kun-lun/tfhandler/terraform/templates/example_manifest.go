@@ -1,3 +1,6 @@
+package templates
+
+var example_artifact = []byte(`
 ---
 schema: v0.1
 
@@ -213,3 +216,4 @@ mysql_databases:
     ssl_enforcement: Enabled # Possible values: ["Enabled", "Disabled"]
     username: "kunlunuser"
     password: "abcd1234!"
+`)

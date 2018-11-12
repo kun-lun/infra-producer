@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/coreos/go-semver/semver"
-	"github.com/kun-lun/common/logger"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+	"github.com/kun-lun/common/logger"
 	"github.com/kun-lun/common/storage"
 )
 
@@ -58,7 +58,10 @@ func (m Manager) ValidateVersion() error {
 
 func (m Manager) Setup(manifest artifacts.Manifest, kunlunState storage.State) error {
 	m.logger.Step("generating terraform template")
-	template := m.templateGenerator.GenerateTemplate(manifest, kunlunState)
+	template, err := m.templateGenerator.GenerateTemplate(manifest, kunlunState)
+	if err != nil {
+		return fmt.Errorf("Template generator generate: %s", err)
+	}
 
 	m.logger.Step("generating terraform variables")
 	input, err := m.inputGenerator.GenerateInput(manifest, kunlunState)

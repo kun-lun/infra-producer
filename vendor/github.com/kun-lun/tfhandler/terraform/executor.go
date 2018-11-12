@@ -60,7 +60,7 @@ func NewExecutor(cli terraformCLI, bufferingCLI terraformCLI, stateStore stateSt
 	}
 }
 
-func (e Executor) Setup(template string, input map[string]interface{}) error {
+func (e Executor) Setup(template, input string) error {
 	terraformDir, err := e.stateStore.GetTerraformDir()
 	if err != nil {
 		return err
@@ -86,29 +86,12 @@ func (e Executor) Setup(template string, input map[string]interface{}) error {
 		return fmt.Errorf("Write .gitignore for terraform binaries: %s", err)
 	}
 
-	err = e.fs.WriteFile(filepath.Join(varsDir, "kunlun.tfvars"), []byte(formatVars(input)), storage.StateMode)
+	err = e.fs.WriteFile(filepath.Join(varsDir, "kunlun.tfvars"), []byte(input), storage.StateMode)
 	if err != nil {
 		return fmt.Errorf("Write terraform vars: %s", err)
 	}
 
 	return nil
-}
-
-func formatVars(inputs map[string]interface{}) string {
-	formattedVars := ""
-	for name, value := range inputs {
-		if vString, ok := value.(string); ok {
-			vString = fmt.Sprintf(`"%s"`, vString)
-			if strings.Contains(vString, "\n") {
-				vString = strings.Replace(vString, "\n", "\\n", -1)
-			}
-			value = vString
-		} else if valList, ok := value.([]string); ok {
-			value = fmt.Sprintf(`["%s"]`, strings.Join(valList, `","`))
-		}
-		formattedVars = fmt.Sprintf("%s\n%s=%s", formattedVars, name, value)
-	}
-	return formattedVars
 }
 
 func (e Executor) runTFCommand(args []string) error {

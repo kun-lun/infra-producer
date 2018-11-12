@@ -1,20 +1,34 @@
 package apis
 
+import (
+	"gopkg.in/yaml.v2"
+)
+
 // VMGroup contains needed information to create a set of VMs on Azure. VMs in the group
 // will have the same SKU, using the same subnet.
 type VMGroup struct {
-	Name         string           `yaml:"name"`
-	Meta         *VMGroupMetaData `yaml:"meta,omitempty"`
-	Count        int              `yaml:"count"`
-	SKU          string           `yaml:"sku"`
-	Type         string           `yaml:"type"`
-	Storage      *VMStorage       `yaml:"storage"`
-	NetworkInfos []VMNetworkInfo  `yaml:"networks"`
-	Networks     []VMNetWork      `yaml:"anything,skip"`
+	Name         string          `yaml:"name"`
+	Meta         yaml.MapSlice   `yaml:"meta,omitempty"`
+	Count        int             `yaml:"count"`
+	SKU          string          `yaml:"sku"`
+	Type         string          `yaml:"type"`
+	OSProfile    VMOSProfile     `yaml:"os_profile"`
+	Storage      *VMStorage      `yaml:"storage"`
+	NetworkInfos []VMNetworkInfo `yaml:"networks"`
+	Roles        []Role          `yaml:"roles"`
 }
 
-type VMGroupMetaData struct {
-	AutoStop bool `yaml:"autostop"`
+type VMOSProfile struct {
+	AdminName          string             `yaml:"admin_name"`
+	LinuxConfiguration LinuxConfiguration `yaml:"linux_configuration"`
+}
+
+type LinuxConfiguration struct {
+	SSH SSH `yaml:"ssh"`
+}
+
+type SSH struct {
+	PublicKeys []string `yaml:"public_keys,omitempty"`
 }
 
 type VMStorage struct {
@@ -24,14 +38,19 @@ type VMStorage struct {
 	AzureFiles []AzureFile `yaml:"azure_files"`
 }
 
-type VMNetWork struct {
-	Subnet       *Subnet
-	LoadBalancer *LoadBalancer
+type VMNetworkInfo struct {
+	SubnetName                         string            `yaml:"subnet_name"`
+	LoadBalancerName                   string            `yaml:"load_balancer_name"`
+	LoadBalancerBackendAddressPoolName string            `yaml:"load_balancer_backend_address_pool_name"`
+	NetworkSecurityGroupName           string            `yaml:"network_security_group_name"`
+	PublicIP                           string            `yaml:"public_ip"`
+	Outputs                            []VMNetworkOutput `yaml:"outputs,omitempty"`
 }
 
-type VMNetworkInfo struct {
-	SubnetName       string `yaml:"subnet_name"`
-	LoadBalancerName string `yaml:"load_balancer_name"`
+type VMNetworkOutput struct {
+	IP       string `yaml:"ip"`
+	PublicIP string `yaml:"public_ip"`
+	Host     string `yaml:"host"`
 }
 
 const (
