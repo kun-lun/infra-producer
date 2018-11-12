@@ -3,7 +3,7 @@ package templates
 import (
 	"bytes"
 	"fmt"
-	"html/template"
+	"text/template"
 )
 
 func render(tpl []byte, obj interface{}) (string, error) {
