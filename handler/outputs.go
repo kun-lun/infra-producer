@@ -19,7 +19,7 @@ var outputsOpsFile = []byte(`
 - type: replace
   path: /vm_groups/name=web-servers/networks/0/outputs?
   value:
-    - ip: {{.vm_groups_web-servers_networks_0_outputs_0}}
+    - ip: {{.vm_groups_web_servers_networks_0_outputs_0}}
 `)
 
 func ToOutputsOpsFile(outputs Outputs) (string, error) {
@@ -34,6 +34,6 @@ func ToOutputsOpsFile(outputs Outputs) (string, error) {
 func getOutputsParams(outputs Outputs) map[string]interface{} {
 	return map[string]interface{}{
 		"vm_groups_jumpbox_networks_0_outputs_0": outputs.GetStringMap("vm_groups_jumpbox_networks_0_outputs_0")["public_ip"],
-		"vm_groups_web-servers_networks_0_outputs_0": outputs.GetStringMap("vm_groups_web-servers_networks_0_outputs_0")["ip"],
+		"vm_groups_web_servers_networks_0_outputs_0": outputs.GetStringMap("vm_groups_web-servers_networks_0_outputs_0")["ip"],
 	}
 }
