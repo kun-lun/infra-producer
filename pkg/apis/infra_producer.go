@@ -74,3 +74,17 @@ func (ip InfraProducer) Apply(state storage.State) error {
 
 	return nil
 }
+
+func (ip InfraProducer) GetOutputs() (string, error) {
+	outputs, err := ip.manager.GetOutputs()
+	if err != nil {
+		return "", err
+	}
+
+	contents, err := handler.ToOutputsOpsFile(outputs)
+	if err != nil {
+		return "", err
+	}
+
+	return contents, nil
+}

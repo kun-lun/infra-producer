@@ -33,12 +33,13 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:403ef24cc9f567fefa99d00f481f35f638002d7c1a7355dcc08af2207cc55255"
+  digest = "1:a8866a939fe25d566545ec5d7a8d924a02e8570eb2ddaa3ff917c4f4a27a17ca"
   name = "github.com/kun-lun/common"
   packages = [
     "configuration",
     "errors",
     "fileio",
+    "helpers",
     "logger",
     "storage",
   ]
@@ -205,6 +206,7 @@
     "github.com/kun-lun/artifacts/pkg/apis",
     "github.com/kun-lun/common/configuration",
     "github.com/kun-lun/common/errors",
+    "github.com/kun-lun/common/helpers",
     "github.com/kun-lun/common/logger",
     "github.com/kun-lun/common/storage",
     "github.com/kun-lun/tfhandler/terraform",
