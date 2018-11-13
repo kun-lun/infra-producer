@@ -1,6 +1,9 @@
 package templates
 
-import artifacts "github.com/kun-lun/artifacts/pkg/apis"
+import (
+	"github.com/kun-lun/common/helpers"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+)
 
 var mysqlTF = []byte(`
 resource "azurerm_mysql_server" "{{.mysqlServerName}}" {
@@ -52,11 +55,11 @@ var mysqlTFVars = []byte(`
 `)
 
 func NewMysqlTemplate(mysql artifacts.MysqlDatabase) (string, error) {
-	return render(mysqlTF, getMysqlTFParams(mysql))
+	return helpers.Render(mysqlTF, getMysqlTFParams(mysql))
 }
 
 func NewMysqlInput(mysql artifacts.MysqlDatabase) (string, error) {
-	return render(mysqlTFVars, getMysqlTFVarsParams(mysql))
+	return helpers.Render(mysqlTFVars, getMysqlTFVarsParams(mysql))
 }
 
 func getMysqlTFParams(mysql artifacts.MysqlDatabase) map[string]interface{} {
