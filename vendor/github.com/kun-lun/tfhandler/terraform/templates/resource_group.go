@@ -1,5 +1,9 @@
 package templates
 
+import (
+	"github.com/kun-lun/common/helpers"
+)
+
 var resourceGroupTF = []byte(`
 variable "resource_group_name" {}
 variable "location" {}
@@ -22,7 +26,7 @@ func NewResourceGroupTemplate() (string, error) {
 }
 
 func NewResourceGroupInput(resourceGroupName, location, envName string) (string, error) {
-	return render(resourceGroupTFVars, map[string]interface{}{
+	return helpers.Render(resourceGroupTFVars, map[string]interface{}{
 		"resourceGroupName": resourceGroupName,
 		"location":          location,
 		"envName":           envName,

@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"github.com/kun-lun/common/helpers"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 )
 
@@ -143,11 +144,11 @@ var vmssTFVars = []byte(`
 `)
 
 func NewVMSSTemplate(vmss artifacts.VMGroup) (string, error) {
-	return render(vmssTF, getVMSSTFParams(vmss))
+	return helpers.Render(vmssTF, getVMSSTFParams(vmss))
 }
 
 func NewVMSSInput(vmss artifacts.VMGroup) (string, error) {
-	return render(vmssTFVars, getVMSSTFVarsParams(vmss))
+	return helpers.Render(vmssTFVars, getVMSSTFVarsParams(vmss))
 }
 
 func getVMSSTFParams(vmss artifacts.VMGroup) map[string]interface{} {

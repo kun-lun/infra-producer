@@ -8,4 +8,5 @@ import (
 type Manager interface {
 	Setup(manifest artifacts.Manifest, kunlunState storage.State) error
 	Apply(kunlunState storage.State) (storage.State, error)
+	GetOutputs() (Outputs, error)
 }

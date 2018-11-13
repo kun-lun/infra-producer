@@ -1,4 +1,4 @@
-package templates
+package helpers
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-func render(tpl []byte, obj interface{}) (string, error) {
+func Render(tpl []byte, obj interface{}) (string, error) {
 	goTemplate, err := template.New(
 		"",
 	).Parse(string(tpl))

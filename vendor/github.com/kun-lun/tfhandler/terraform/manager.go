@@ -9,6 +9,7 @@ import (
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 	"github.com/kun-lun/common/logger"
 	"github.com/kun-lun/common/storage"
+	"github.com/kun-lun/infra-producer/handler"
 )
 
 type Manager struct {
@@ -129,7 +130,7 @@ func (m Manager) Validate(kunlunState storage.State) (storage.State, error) {
 	return kunlunState, nil
 }
 
-func (m Manager) GetOutputs() (Outputs, error) {
+func (m Manager) GetOutputs() (handler.Outputs, error) {
 	tfOutputs, err := m.executor.Outputs()
 	if err != nil {
 		return Outputs{}, err

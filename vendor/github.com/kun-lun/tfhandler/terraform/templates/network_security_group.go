@@ -1,6 +1,9 @@
 package templates
 
-import artifacts "github.com/kun-lun/artifacts/pkg/apis"
+import (
+	"github.com/kun-lun/common/helpers"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+)
 
 var networkSecurityGroupTemplate = []byte(`
 resource "azurerm_network_security_group" "{{.nsgName}}" {
@@ -49,14 +52,14 @@ var networkSecurityRuleInput = []byte(`
 
 func NewNSGTemplate(nsg artifacts.NetworkSecurityGroup) (string, error) {
 	template := ""
-	nsgTemplate, err := render(networkSecurityGroupTemplate, buildNSGTemplateGoParams(nsg))
+	nsgTemplate, err := helpers.Render(networkSecurityGroupTemplate, buildNSGTemplateGoParams(nsg))
 	if err != nil {
 		return "", err
 	}
 	template += nsgTemplate
 
 	for _, nsr := range nsg.NetworkSecurityRules {
-		nsrTemplate, err := render(networkSecurityRuleTemplate, buildNSRTemplateGoParams(nsr, nsg.Name))
+		nsrTemplate, err := helpers.Render(networkSecurityRuleTemplate, buildNSRTemplateGoParams(nsr, nsg.Name))
 		if err != nil {
 			return "", err
 		}
@@ -68,7 +71,7 @@ func NewNSGTemplate(nsg artifacts.NetworkSecurityGroup) (string, error) {
 func NewNSGInput(nsg artifacts.NetworkSecurityGroup) (string, error) {
 	input := ""
 	for _, nsr := range nsg.NetworkSecurityRules {
-		nsrInput, err := render(networkSecurityRuleInput, buildNSRInputGoParams(nsr))
+		nsrInput, err := helpers.Render(networkSecurityRuleInput, buildNSRInputGoParams(nsr))
 		if err != nil {
 			return "", err
 		}
