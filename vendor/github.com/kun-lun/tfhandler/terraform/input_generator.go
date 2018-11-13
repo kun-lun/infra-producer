@@ -48,7 +48,6 @@ func (i InputGenerator) GenerateInput(manifest artifacts.Manifest, state storage
 	}
 
 	for _, vmg := range manifest.VMGroups {
-		fmt.Println(vmg.NetworkInfos[0].SubnetName)
 		var ipt string
 		var err error
 		if vmg.Type == "vm" {

@@ -53,7 +53,7 @@ vm_groups:
   - name: web-servers
     count: 3
     sku: Standard_B1s
-    type: vmss # this can be vm or vmss
+    type: vm # this can be vm or vmss
     os_profile:
       admin_name: kunlun
       linux_configuration:
@@ -150,6 +150,7 @@ vm_groups:
 
 vnets:
   - name: vnet-1
+    address_space: "10.0.0.0/16"
     subnets:
       - name: snet-1
         range: 10.0.0.0/24

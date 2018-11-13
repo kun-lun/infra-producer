@@ -6,9 +6,14 @@ var virtualNetworkTF = []byte(`
 resource "azurerm_virtual_network" "{{.vnetName}}" {
 	name                = "${var.env_name}-{{.vnetName}}"
 	resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
-	address_space       = ["10.0.0.0/16"]
+	address_space       = ["${var.{{.vnetName}}_avn_address_space}"]
 	location            = "${var.location}"
 }
+variable "{{.vnetName}}_avn_address_space" {}
+`)
+
+var virtualNetworkTFVars = []byte(`
+{{.vnetName}}_avn_address_space = "{{.avn_address_space}}"
 `)
 
 var subnetTF = []byte(`
@@ -48,6 +53,13 @@ func NewVirtualNetworkTemplate(vnet artifacts.VirtualNetwork) (string, error) {
 
 func NewVirtualNetworkInput(vnet artifacts.VirtualNetwork) (string, error) {
 	tfvars := ""
+
+	vnetTFVars, err := render(virtualNetworkTFVars, getVirutalNetworkTFVarsParams(vnet))
+	if err != nil {
+		return "", err
+	}
+	tfvars += vnetTFVars
+
 	for _, snet := range vnet.Subnets {
 		snetTFVars, err := render(subnetTFVars, getSubnetTFVarsParams(snet))
 		if err != nil {
@@ -64,6 +76,12 @@ func getVirtualNetworkTFParams(vnet artifacts.VirtualNetwork) map[string]interfa
 	}
 }
 
+func getVirutalNetworkTFVarsParams(vnet artifacts.VirtualNetwork) map[string]interface{} {
+	return map[string]interface{}{
+		"vnetName":          vnet.Name,
+		"avn_address_space": vnet.AddressSpace,
+	}
+}
 func getSubnetTFParams(snet artifacts.Subnet, vnetName string) map[string]interface{} {
 	return map[string]interface{}{
 		"subnetName": snet.Name,

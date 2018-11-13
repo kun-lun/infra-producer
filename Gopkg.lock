@@ -47,7 +47,7 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:c14765f7c8003388602f653008831d32534f8fb60b407e34ce0d4bddaa526d57"
+  digest = "1:549fa5446275ab2b53d42cfc592922c8f1af56c0e0bdaf0d9036644f40a44180"
   name = "github.com/kun-lun/tfhandler"
   packages = [
     "terraform",
@@ -55,7 +55,7 @@
     "terraform/templates",
   ]
   pruneopts = "UT"
-  revision = "a72c5a5d2b0041d6136b33a21408655684a4859e"
+  revision = "6b39bfa79036ec1a6d871db615b8ffb788905e0c"
 
 [[projects]]
   branch = "master"
