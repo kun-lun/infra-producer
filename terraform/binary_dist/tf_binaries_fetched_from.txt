@@ -1,1 +1,0 @@
-https://releases.hashicorp.com/terraform/0.11.7
