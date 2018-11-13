@@ -7,7 +7,7 @@ import (
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
 )
 
-func mainExample() {
+func MainExample() {
 	m, err := artifacts.NewManifestFromYAML(example_artifact)
 	if err != nil {
 		fmt.Println(err)

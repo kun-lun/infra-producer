@@ -1,6 +1,9 @@
 package templates
 
-import artifacts "github.com/kun-lun/artifacts/pkg/apis"
+import (
+	"strings"
+	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+)
 
 var vmTF = []byte(`
 resource "azurerm_availability_set" "{{.vmGroupName}}_as" {
@@ -17,7 +20,7 @@ resource "azurerm_public_ip" "{{.vmGroupName}}_public_ip" {
 	location                     = "${var.location}"
 	resource_group_name          = "${azurerm_resource_group.kunlun_resource_group.name}"
 	public_ip_address_allocation = "{{.publicIPAddressAllocation}}"
-  }
+}
 {{- end}}
 
 resource "azurerm_network_interface" "{{.vmGroupName}}_nic" {
@@ -90,7 +93,7 @@ resource "azurerm_virtual_machine" "{{.vmGroupName}}" {
 }
   
 {{if .loadBalancerBackendAddressPoolName}}
-resource "azurerm_network_interface_backend_address_pool_association" "{{.vmGroup}}_backend_address_pool_association" {
+resource "azurerm_network_interface_backend_address_pool_association" "{{.vmGroupName}}_backend_address_pool_association" {
 	count                   = "${var.{{.vmGroupName}}_avm_count}"
 	network_interface_id    = "${azurerm_network_interface.{{.vmGroupName}}_nic.*.id[count.index]}"
 	ip_configuration_name   = "${var.env_name}-{{.vmGroupName}}-nicip-${count.index}"
@@ -133,8 +136,35 @@ var vmTFVars = []byte(`
 {{.vmGroupName}}_avm_os_profile_linux_config_ssh_keys_key_data = "{{.avm_os_profile_linux_config_ssh_keys_key_data}}"
 `)
 
+var vmOutputTF = []byte(`
+output "vm_groups_{{.vmGroupName}}_networks_0_outputs_{{.index}}" {
+	value = {
+		"ip" = "${azurerm_network_interface.{{.vmGroupName}}_nic.*.private_ip_address[{{.index}}]}"
+		{{if .publicIPAddressAllocation -}}
+		"public_ip" = "${azurerm_public_ip.{{.vmGroupName}}_public_ip.*.ip_address[{{.index}}]}"
+		{{- end}}
+	}
+}`)
+
 func NewVMTemplate(vm artifacts.VMGroup) (string, error) {
-	return render(vmTF, getVMTFParams(vm))
+	template, err := render(vmTF, getVMTFParams(vm))
+	if err != nil {
+		return "", err
+	}
+
+	for i := 0; i < vm.Count; i++ {
+		outputTemplate, err := render(vmOutputTF, map[string]interface{}{
+			"vmGroupName":               vm.Name,
+			"index":                     i,
+			"publicIPAddressAllocation": vm.NetworkInfos[0].PublicIP == "static" || vm.NetworkInfos[0].PublicIP == "dynamic",
+		})
+		if err != nil {
+			return "", err
+		}
+		template += outputTemplate
+	}
+
+	return template, nil
 }
 
 func NewVMInput(vm artifacts.VMGroup) (string, error) {
@@ -171,6 +201,6 @@ func getVMTFVarsParams(vm artifacts.VMGroup) map[string]interface{} {
 		"avm_storage_data_disk_managed_disk_type":       vm.Storage.DataDisks[0].ManagedDiskType,
 		"avm_storage_data_disk_disk_size_gb":            vm.Storage.DataDisks[0].DiskSizeGB,
 		"avm_os_profile_admin_username":                 vm.OSProfile.AdminName,
-		"avm_os_profile_linux_config_ssh_keys_key_data": vm.OSProfile.LinuxConfiguration.SSH.PublicKeys[0],
+		"avm_os_profile_linux_config_ssh_keys_key_data": strings.TrimSpace(vm.OSProfile.LinuxConfiguration.SSH.PublicKeys[0]),
 	}
 }
