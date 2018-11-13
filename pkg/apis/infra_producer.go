@@ -62,19 +62,15 @@ func NewInfraProducer(stateStore storage.Store, handlerType string, debug bool) 
 	}
 }
 
-func (ip InfraProducer) Setup(artifactsBytes []byte, state storage.State) error {
-	im, err := artifacts.NewManifestFromYAML(artifactsBytes)
-	if err != nil {
-		return err
-	}
-
-	ip.manager.Setup(*im, state)
-
-	return nil
+func (ip InfraProducer) Setup(manifest artifacts.Manifest, state storage.State) error {
+	return ip.manager.Setup(manifest, state)
 }
 
 func (ip InfraProducer) Apply(state storage.State) error {
-	ip.manager.Apply(state)
+	_, err := ip.manager.Apply(state)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
