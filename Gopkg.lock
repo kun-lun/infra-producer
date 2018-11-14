@@ -25,15 +25,15 @@
 
 [[projects]]
   branch = "draft"
-  digest = "1:3728648d538fa8ce19fd6e339634bdbf73a0833dc9dced6a3dc6615ccbf29b66"
+  digest = "1:54ebba2565798084dab1a6e07889c164535f9b1e7eb72d1983c48a094fd9e71f"
   name = "github.com/kun-lun/artifacts"
   packages = ["pkg/apis"]
   pruneopts = "UT"
-  revision = "868dee36768e55cc757137c5a0effd905be46225"
+  revision = "bf99176675abc4f8b69b4f95942d739635485366"
 
 [[projects]]
   branch = "draft"
-  digest = "1:e32cba3da57d13d7936a3bfb84d524be956bd02635d653c5b8638e0185d470e6"
+  digest = "1:d33999d6379a683101da673b023ffb65814742697f1c3f5fc978e49bc09b0dab"
   name = "github.com/kun-lun/common"
   packages = [
     "configuration",
@@ -44,11 +44,11 @@
     "storage",
   ]
   pruneopts = "UT"
-  revision = "cf5765a53f83c9cd20042875e21df63933a28a20"
+  revision = "ffd186f6796668fd89f592a99a6d8a3887da300e"
 
 [[projects]]
   branch = "draft"
-  digest = "1:26b8d96826d90f05370d9f9a5cd53ae9a48fa723f68bb8158e433edfcaeac8d0"
+  digest = "1:a5e6cda31945fa29ad300e8ff26f314e5c71a996d55910364818437599d57f7b"
   name = "github.com/kun-lun/tfhandler"
   packages = [
     "terraform",
@@ -56,7 +56,7 @@
     "terraform/templates",
   ]
   pruneopts = "UT"
-  revision = "30a14a4cac519625fd8fe27515370f26213b1f87"
+  revision = "c0c4ff85277c8e0278503125e1717937df62fa3b"
 
 [[projects]]
   branch = "master"
