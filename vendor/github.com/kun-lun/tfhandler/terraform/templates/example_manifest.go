@@ -207,7 +207,7 @@ mysql_databases:
       origin_database: asd
       origin_username: asd
       origin_password: asd
-    name: "kunlun-mysql"
+    name: "kunlundb"
     version: "5.7"
     cores: 2
     tier: GeneralPurpose # Possible values: ["Basic", "GeneralPurpose", "MemoryOptimized"]

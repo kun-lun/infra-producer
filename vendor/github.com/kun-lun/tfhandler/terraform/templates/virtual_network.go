@@ -1,8 +1,8 @@
 package templates
 
 import (
-	"github.com/kun-lun/common/helpers"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+	"github.com/kun-lun/common/helpers"
 )
 
 var virtualNetworkTF = []byte(`

@@ -22,7 +22,7 @@ type Manifest struct {
 }
 
 func (m *Manifest) validate() error {
-	return nil
+	return newValidator().Validate(*m)
 }
 
 // ToYAML converts the object to YAML bytes

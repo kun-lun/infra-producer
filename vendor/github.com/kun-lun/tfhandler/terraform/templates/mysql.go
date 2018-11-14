@@ -1,8 +1,8 @@
 package templates
 
 import (
-	"github.com/kun-lun/common/helpers"
 	artifacts "github.com/kun-lun/artifacts/pkg/apis"
+	"github.com/kun-lun/common/helpers"
 )
 
 var mysqlTF = []byte(`
@@ -39,6 +39,15 @@ variable "{{.mysqlServerName}}_ams_administrator_login" {}
 variable "{{.mysqlServerName}}_ams_administrator_login_password" {}
 variable "{{.mysqlServerName}}_ams_version" {}
 variable "{{.mysqlServerName}}_ams_ssl_enforcement" {}
+
+resource "azurerm_mysql_database" "{{.mysqlDatabaseName}}" {
+	name = "{{.mysqlDatabaseName}}"
+	resource_group_name = "${azurerm_resource_group.kunlun_resource_group.name}"
+	server_name = "${azurerm_mysql_server.{{.mysqlServerName}}.name}"
+	charset = "utf8"
+	collation = "utf8_unicode_ci"
+}
+
 `)
 
 var mysqlTFVars = []byte(`
@@ -64,7 +73,8 @@ func NewMysqlInput(mysql artifacts.MysqlDatabase) (string, error) {
 
 func getMysqlTFParams(mysql artifacts.MysqlDatabase) map[string]interface{} {
 	return map[string]interface{}{
-		"mysqlServerName": mysql.Name,
+		"mysqlServerName":   mysql.Name,
+		"mysqlDatabaseName": mysql.Name,
 	}
 }
 
